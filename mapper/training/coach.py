@@ -9,7 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import criteria.clip_loss as clip_loss
 from criteria import id_loss
-from mapper.datasets.latents_dataset import LatentsDataset
+from mapper.dataset.latents_dataset import LatentsDataset
 from mapper.styleclip_mapper import StyleCLIPMapper
 from mapper.training.ranger import Ranger
 from mapper.training import train_utils
