@@ -27,7 +27,6 @@ class Mapper(Module):
 
 
 class SingleMapper(Module):
-
     def __init__(self, opts):
         super(SingleMapper, self).__init__()
 
@@ -41,7 +40,6 @@ class SingleMapper(Module):
 
 
 class LevelsMapper(Module):
-
     def __init__(self, opts):
         super(LevelsMapper, self).__init__()
 
