@@ -17,6 +17,14 @@ google_drive_paths = {
     "mapper/pretrained/taylor_swift.pt": "https://drive.google.com/uc?id=10jHuHsKKJxuf3N0vgQbX_SMEQgFHDrZa",
     "mapper/pretrained/trump.pt": "https://drive.google.com/uc?id=14v8D0uzy4tOyfBU3ca9T0AzTt3v-dNyh",
     "mapper/pretrained/zuckerberg.pt": "https://drive.google.com/uc?id=1NjDcMUL8G-pO3i_9N6EPpQNXeMc3Ar1r",
+    
+    "mapper/pretrained/Blue_eyes&wavy.pt": "https://drive.google.com/file/d/14e0Uqe3CyDPY7nSU3iLweJwKj3EmltvF",
+    "mapper/pretrained/Cold_face.pt": "https://drive.google.com/file/d/1sUAqfc-7Kxm7kQieMxq5eDfOSNsAwUzt",
+    "mapper/pretrained/Elsa.pt": "https://drive.google.com/file/d/1YDyYL8katr6yvY_EDU14EOpE7Ay3i-83",
+    "mapper/pretrained/Evil.pt": "https://drive.google.com/file/d/1vHyOzNGakXQJfXMYinwAHcbQ62LNwbMW",
+    "mapper/pretrained/IronMan.pt": "https://drive.google.com/file/d/1TLYiKHR3i0_W3uiQ6TqB2vggjn3Gzl6o",
+    "mapper/pretrained/Moana.pt": "https://drive.google.com/file/d/1ZZJBI2qDRD5ZeA0QqPrzXChXNx9qT8RU",
+    "mapper/pretrained/Pink_hair.pt": "https://drive.google.com/file/d/19aer_dJNRGEUvc3_vurCTQO4719grV1h",
 
     "example_celebs.pt": "https://drive.google.com/uc?id=1VL3lP4avRhz75LxSza6jgDe-pHd2veQG"
 }
