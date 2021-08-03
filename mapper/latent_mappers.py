@@ -12,18 +12,18 @@ class Mapper_color(Module):
         layers = [PixelNorm()]
         layers.append(
                 EqualLinear(
-                    516, 720, lr_mul=0.01, activation='fused_lrelu' # vector size
+                    516, 1024, lr_mul=0.01, activation='fused_lrelu' # vector size
                 )
             )
-        for i in range(7):
+        for i in range(6):
             layers.append(
                 EqualLinear(
-                    720, 720, lr_mul=0.01, activation='fused_lrelu' # vector size
+                    1024, 1024, lr_mul=0.01, activation='fused_lrelu' # vector size
                 )
             )
         layers.append(
                 EqualLinear(
-                    720, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
+                    1024, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
                 )
         )
         
