@@ -14,12 +14,12 @@ class Mapper_color(Module):
         for i in range(7):
             layers.append(
                 EqualLinear(
-                    515, 515, lr_mul=0.01, activation='fused_lrelu' # vector size
+                    516, 516, lr_mul=0.01, activation='fused_lrelu' # vector size
                 )
             )
         layers.append(
                 EqualLinear(
-                    515, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
+                    516, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
                 )
         )
         
@@ -40,12 +40,12 @@ class Mapper_hair(Module):
         for i in range(7):
             layers.append(
                 EqualLinear(
-                    512, 512, lr_mul=0.01, activation='fused_lrelu'
+                    517, 517, lr_mul=0.01, activation='fused_lrelu'
                 )
             )
         layers.append(
                 EqualLinear(
-                    515, 515, lr_mul=0.01, activation='fused_lrelu' # vector size
+                    517, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
                 )
         )
         self.mapping = nn.Sequential(*layers)
