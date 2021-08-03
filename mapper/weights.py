@@ -1,8 +1,20 @@
 
 google_drive_paths = {
   
-  "pink_hair.pt" : "https://drive.google.com/file/d/19aer_dJNRGEUvc3_vurCTQO4719grV1h",
-  "Elsa.pt" : "https://drive.google.com/file/d/1YDyYL8katr6yvY_EDU14EOpE7Ay3i-83"
+  "Anna.pt": "https://drive.google.com/file/d/1Vaw5GPEWlLn7DReu8lOfj4f3A_t-KHsl",
+  "ash_hair.pt":"https://drive.google.com/file/d/1w85GRTHNyI4e-Kxx6YKrUtqDPoNJU5pI",
+  "Bangs.pt":"https://drive.google.com/file/d/1EaxNeAxC2_cPoI-QyL_VZNp-yg79xPw6",
+  "Blue_eyes_wavy.pt": "https://drive.google.com/file/d/14e0Uqe3CyDPY7nSU3iLweJwKj3EmltvF", # blue eyes & wavy hair
+  "blue_eyes.pt":"https://drive.google.com/file/d/1Z0s2iNaMlhm0CHjtGbvEL3kIdqF5Wq3e",
+  "Cold_face.pt": "https://drive.google.com/file/d/1sUAqfc-7Kxm7kQieMxq5eDfOSNsAwUzt",
+  "Elsa.pt": "https://drive.google.com/file/d/1YDyYL8katr6yvY_EDU14EOpE7Ay3i-83",
+  "Emma_Watson.pt":"https://drive.google.com/file/d/1LjlunghdYG91Z7XZiBEDeht1WTIAHGNO",
+  "Evil.pt": "https://drive.google.com/file/d/1vHyOzNGakXQJfXMYinwAHcbQ62LNwbMW",
+  "IronMan.pt": "https://drive.google.com/file/d/1TLYiKHR3i0_W3uiQ6TqB2vggjn3Gzl6o",
+  "Moana.pt": "https://drive.google.com/file/d/1ZZJBI2qDRD5ZeA0QqPrzXChXNx9qT8RU",
+  "Pink_hair.pt": "https://drive.google.com/file/d/19aer_dJNRGEUvc3_vurCTQO4719grV1h",
+  "wavy.pt":"https://drive.google.com/file/d/1VEtSxJ8yu6PL-pwj5NOz3Q7VwUFtSZQe",
+
   
   "afro.pt" : "https://drive.google.com/uc?id=1i5vAqo4z0I-Yon3FNft_YZOq7ClWayQJ",
   "angry.pt" : "https://drive.google.com/uc?id=1g82HEH0jFDrcbCtn3M22gesWKfzWV_ma",
