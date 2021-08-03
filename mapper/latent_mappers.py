@@ -10,16 +10,20 @@ class Mapper_color(Module):
         self.mode = opts.mapper_mode
         self.opts = opts
         layers = [PixelNorm()]
-
+        layers.append(
+                EqualLinear(
+                    516, 720, lr_mul=0.01, activation='fused_lrelu' # vector size
+                )
+            )
         for i in range(7):
             layers.append(
                 EqualLinear(
-                    516, 516, lr_mul=0.01, activation='fused_lrelu' # vector size
+                    720, 720, lr_mul=0.01, activation='fused_lrelu' # vector size
                 )
             )
         layers.append(
                 EqualLinear(
-                    516, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
+                    720, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
                 )
         )
         
