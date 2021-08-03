@@ -82,15 +82,15 @@ class LevelsMapper(Module):
                 
         if not opts.no_medium_mapper:
             if opts.mapper_mode == "hair":
-                self.course_mapping = Mapper_hair(opts)
+                self.medium_mapping = Mapper_hair(opts)
             elif opts.mapper_mode == "color":
-                self.course_mapping = Mapper_color(opts)
+                self.medium_mapping = Mapper_color(opts)
                 
         if not opts.no_fine_mapper:
             if opts.mapper_mode == "hair":
-                self.course_mapping = Mapper_hair(opts)
+                self.fine_mapping = Mapper_hair(opts)
             elif opts.mapper_mode == "color":
-                self.course_mapping = Mapper_color(opts)
+                self.fine_mapping = Mapper_color(opts)
 
     def forward(self, x):
         x_coarse = x[:, :4, :]
