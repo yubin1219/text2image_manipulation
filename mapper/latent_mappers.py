@@ -7,15 +7,10 @@ from models.stylegan2.model import EqualLinear, PixelNorm
 class Mapper_color(Module):
     def __init__(self, opts):
         super(Mapper_color, self).__init__()
-        self.mode = opts.mapper_mode
         self.opts = opts
         layers = [PixelNorm()]
-        layers.append(
-                EqualLinear(
-                    516, 1024, lr_mul=0.01, activation='fused_lrelu' # vector size
-                )
-            )
-        for i in range(6):
+        
+        for i in range(7):
             layers.append(
                 EqualLinear(
                     1024, 1024, lr_mul=0.01, activation='fused_lrelu' # vector size
@@ -97,6 +92,7 @@ class LevelsMapper(Module):
                 self.fine_mapping = Mapper_color(opts)
 
     def forward(self, x):
+        s1,s2,s3 = x.size()
         x_coarse = x[:, :4, :]
         x_medium = x[:, 4:8, :]
         x_fine = x[:, 8:, :]
@@ -104,17 +100,17 @@ class LevelsMapper(Module):
         if not self.opts.no_coarse_mapper:
             x_coarse = self.course_mapping(x_coarse)
         else:
-            x_coarse = torch.zeros_like(x_coarse)
+            x_coarse = torch.zeros([s1,4,512])
             
         if not self.opts.no_medium_mapper:
             x_medium = self.medium_mapping(x_medium)
         else:
-            x_medium = torch.zeros_like(x_medium)
+            x_medium = torch.zeros([s1,4,512])
             
         if not self.opts.no_fine_mapper:
             x_fine = self.fine_mapping(x_fine)
         else:
-            x_fine = torch.zeros_like(x_fine)
+            x_fine = torch.zeros_like([s1,10,512])
 
 
         out = torch.cat([x_coarse, x_medium, x_fine], dim=1)
