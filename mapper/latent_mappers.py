@@ -4,9 +4,9 @@ from torch.nn import Module
 from models.stylegan2.model import EqualLinear, PixelNorm
 
 
-class Mapper_color(Module):
+class Mapper(Module):
     def __init__(self, opts):
-        super(Mapper_color, self).__init__()
+        super(Mapper, self).__init__()
         self.opts = opts
         layers = [PixelNorm()]
         
@@ -29,30 +29,6 @@ class Mapper_color(Module):
         x = self.mapping(x)
         return x
 
-class Mapper_hair(Module):
-    def __init__(self, opts):
-        super(Mapper_hair, self).__init__()
-
-        self.opts = opts
-        layers = [PixelNorm()]
-
-        for i in range(7):
-            layers.append(
-                EqualLinear(
-                    517, 517, lr_mul=0.01, activation='fused_lrelu'
-                )
-            )
-        layers.append(
-                EqualLinear(
-                    517, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
-                )
-        )
-        self.mapping = nn.Sequential(*layers)
-
-
-    def forward(self, x):
-        x = self.mapping(x)
-        return x
     
 class SingleMapper(Module):
     def __init__(self, opts):
@@ -74,23 +50,14 @@ class LevelsMapper(Module):
         self.opts = opts
 
         if not opts.no_coarse_mapper:
-            if opts.mapper_mode == "hair":
-                self.course_mapping = Mapper_hair(opts)
-            elif opts.mapper_mode == "color":
-                self.course_mapping = Mapper_color(opts)
+            self.course_mapping = Mapper(opts)
                 
         if not opts.no_medium_mapper:
-            if opts.mapper_mode == "hair":
-                self.medium_mapping = Mapper_hair(opts)
-            elif opts.mapper_mode == "color":
-                self.medium_mapping = Mapper_color(opts)
+            self.medium_mapping = Mapper(opts)
                 
         if not opts.no_fine_mapper:
-            if opts.mapper_mode == "hair":
-                self.fine_mapping = Mapper_hair(opts)
-            elif opts.mapper_mode == "color":
-                self.fine_mapping = Mapper_color(opts)
-
+            self.fine_mapping = Mapper(opts)
+            
     def forward(self, x):
         s1,s2,s3 = x.size()
         x_coarse = x[:, :4, :]
