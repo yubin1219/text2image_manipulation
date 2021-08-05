@@ -70,13 +70,22 @@ class LevelsMapper(Module):
         self.opts = opts
 
         if not opts.no_coarse_mapper:
-            self.course_mapping = Mapper2(opts)
+            if opts.mapper_mode == "Mapper1":
+                self.course_mapping = Mapper1(opts)
+            elif opts.mapper_mode == "Mapper2":
+                self.course_mapping = Mapper2(opts)
                 
         if not opts.no_medium_mapper:
-            self.medium_mapping = Mapper2(opts)
+            if opts.mapper_mode == "Mapper1":
+                self.medium_mapping = Mapper1(opts)
+            elif opts.mapper_mode == "Mapper2":
+                self.medium_mapping = Mapper2(opts)
                 
         if not opts.no_fine_mapper:
-            self.fine_mapping = Mapper2(opts)
+            if opts.mapper_mode == "Mapper1":
+                self.fine_mapping = Mapper1(opts)
+            elif opts.mapper_mode == "Mapper2":
+                self.fine_mapping = Mapper2(opts)
             
     def forward(self, x):
         s1,s2,s3 = x.size()
