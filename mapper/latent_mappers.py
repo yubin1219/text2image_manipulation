@@ -28,6 +28,26 @@ class Mapper(Module):
     def forward(self, x):
         x = self.mapping(x)
         return x
+    
+class Mapper2(Module):
+    def __init__(self, opts):
+        super(Mapper2, self).__init__()
+        self.opts = opts
+        layers = [PixelNorm()]
+        
+        for i in range(8):
+            layers.append(
+                EqualLinear(
+                    512, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
+                )
+            )
+        
+        self.mapping = nn.Sequential(*layers)
+
+
+    def forward(self, x):
+        x = self.mapping(x)
+        return x
 
     
 class SingleMapper(Module):
@@ -50,13 +70,13 @@ class LevelsMapper(Module):
         self.opts = opts
 
         if not opts.no_coarse_mapper:
-            self.course_mapping = Mapper(opts)
+            self.course_mapping = Mapper2(opts)
                 
         if not opts.no_medium_mapper:
-            self.medium_mapping = Mapper(opts)
+            self.medium_mapping = Mapper2(opts)
                 
         if not opts.no_fine_mapper:
-            self.fine_mapping = Mapper(opts)
+            self.fine_mapping = Mapper2(opts)
             
     def forward(self, x):
         s1,s2,s3 = x.size()
