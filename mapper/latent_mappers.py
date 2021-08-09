@@ -106,7 +106,7 @@ class LevelsMapper(Module):
         if not self.opts.no_fine_mapper:
             x_fine = self.fine_mapping(x_fine)
         else:
-            x_fine = torch.zeros_like([s1,10,512])
+            x_fine = torch.zeros([s1,10,512])
 
 
         out = torch.cat([x_coarse, x_medium, x_fine], dim=1)
