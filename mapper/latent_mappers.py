@@ -67,6 +67,7 @@ class LevelsMapper(Module):
     def __init__(self, opts):
         super(LevelsMapper, self).__init__()
         self.mapper_mode = opts.mapper_mode
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.opts = opts
 
         if not opts.no_coarse_mapper:
@@ -96,17 +97,17 @@ class LevelsMapper(Module):
         if not self.opts.no_coarse_mapper:
             x_coarse = self.course_mapping(x_coarse)
         else:
-            x_coarse = torch.zeros([s1,4,512])
+            x_coarse = torch.zeros([s1,4,512]).to(self.device)
             
         if not self.opts.no_medium_mapper:
             x_medium = self.medium_mapping(x_medium)
         else:
-            x_medium = torch.zeros([s1,4,512])
+            x_medium = torch.zeros([s1,4,512]).to(self.device)
             
         if not self.opts.no_fine_mapper:
             x_fine = self.fine_mapping(x_fine)
         else:
-            x_fine = torch.zeros([s1,10,512])
+            x_fine = torch.zeros([s1,10,512]).to(self.device)
 
 
         out = torch.cat([x_coarse, x_medium, x_fine], dim=1)
