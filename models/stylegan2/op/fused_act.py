@@ -21,8 +21,9 @@ class FusedLeakyReLU(nn.Module):
 
 
 def fused_leaky_relu(input, bias, negative_slope=0.2, scale=2 ** 0.5):
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     rest_dim = [1] * (input.ndim - bias.ndim - 1)
-    input = input.cuda()
+    input = input.to(device)
     if input.ndim == 3:
         return (
             F.leaky_relu(
