@@ -3,10 +3,30 @@ from torch import nn
 from torch.nn import Module
 from models.stylegan2.model import EqualLinear, PixelNorm
 
-
 class Mapper(Module):
     def __init__(self, opts):
         super(Mapper, self).__init__()
+        self.opts = opts
+        layers = [PixelNorm()]
+        
+        for i in range(4):
+            layers.append(
+                EqualLinear(
+                    512, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
+                )
+            )
+        
+        self.mapping = nn.Sequential(*layers)
+
+
+    def forward(self, x):
+        x = self.mapping(x)
+        return x
+
+
+class Mapper_cat(Module):
+    def __init__(self, opts):
+        super(Mapper_cat, self).__init__()
         self.opts = opts
         layers = [PixelNorm()]
         
@@ -29,9 +49,9 @@ class Mapper(Module):
         x = self.mapping(x)
         return x
     
-class Mapper2(Module):
+class Mapper_sum(Module):
     def __init__(self, opts):
-        super(Mapper2, self).__init__()
+        super(Mapper_sum, self).__init__()
         self.opts = opts
         layers = [PixelNorm()]
         
@@ -71,22 +91,22 @@ class LevelsMapper(Module):
         self.opts = opts
 
         if not opts.no_coarse_mapper:
-            if opts.mapper_mode == "Mapper1":
-                self.course_mapping = Mapper(opts)
-            elif opts.mapper_mode == "Mapper2":
-                self.course_mapping = Mapper2(opts)
+            if opts.mapper_mode == "Mapper_cat":
+                self.course_mapping = Mapper_cat(opts)
+            elif opts.mapper_mode == "Mapper_sum":
+                self.course_mapping = Mapper_sum(opts)
                 
         if not opts.no_medium_mapper:
-            if opts.mapper_mode == "Mapper1":
-                self.medium_mapping = Mapper(opts)
-            elif opts.mapper_mode == "Mapper2":
-                self.medium_mapping = Mapper2(opts)
+            if opts.mapper_mode == "Mapper_cat":
+                self.medium_mapping = Mapper_cat(opts)
+            elif opts.mapper_mode == "Mapper_sum":
+                self.medium_mapping = Mapper_sum(opts)
                 
         if not opts.no_fine_mapper:
-            if opts.mapper_mode == "Mapper1":
-                self.fine_mapping = Mapper(opts)
-            elif opts.mapper_mode == "Mapper2":
-                self.fine_mapping = Mapper2(opts)
+            if opts.mapper_mode == "Mapper_cat":
+                self.fine_mapping = Mapper_cat(opts)
+            elif opts.mapper_mode == "Mapper_sum":
+                self.fine_mapping = Mapper_sum(opts)
             
     def forward(self, x):
         s1,s2,s3 = x.size()
