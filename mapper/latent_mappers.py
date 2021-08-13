@@ -68,6 +68,35 @@ class Mapper_sum(Module):
     def forward(self, x):
         x = self.mapping(x)
         return x
+    
+class Mapper_multi(Module):
+    def __init__(self, opts):
+        super(Mapper_multi, self).__init__()
+        self.opts = opts
+        layers = [PixelNorm()]
+        layers.append(
+                EqualLinear(
+                    512, 1024, lr_mul=0.01, activation='fused_lrelu' # vector size
+                )
+        )
+        for i in range(8):
+            layers.append(
+                EqualLinear(
+                    1024, 1024, lr_mul=0.01, activation='fused_lrelu' # vector size
+                )
+            )
+        layers.append(
+                EqualLinear(
+                    1024, 512, lr_mul=0.01, activation='fused_lrelu' # vector size
+                )
+        )
+        
+        self.mapping = nn.Sequential(*layers)
+
+
+    def forward(self, x):
+        x = self.mapping(x)
+        return x
 
     
 class SingleMapper(Module):
@@ -95,18 +124,30 @@ class LevelsMapper(Module):
                 self.course_mapping = Mapper_cat(opts)
             elif opts.mapper_mode == "Mapper_sum":
                 self.course_mapping = Mapper_sum(opts)
+            elif opts.mapper_mode == "Mapper":
+                self.course_mapping = Mapper(opts)
+            elif opts.mapper_mode == "Mapper_multi":
+                self.course_mapping = Mapper_multi(opts)
                 
         if not opts.no_medium_mapper:
             if opts.mapper_mode == "Mapper_cat":
                 self.medium_mapping = Mapper_cat(opts)
             elif opts.mapper_mode == "Mapper_sum":
                 self.medium_mapping = Mapper_sum(opts)
+            elif opts.mapper_mode == "Mapper":
+                self.medium_mapping = Mapper(opts)
+            elif opts.mapper_mode == "Mapper_multi":
+                self.medium_mapping = Mapper_multi(opts)
                 
         if not opts.no_fine_mapper:
             if opts.mapper_mode == "Mapper_cat":
                 self.fine_mapping = Mapper_cat(opts)
             elif opts.mapper_mode == "Mapper_sum":
                 self.fine_mapping = Mapper_sum(opts)
+            elif opts.mapper_mode == "Mapper":
+                self.fine_mapping = Mapper(opts)
+            elif opts.mapper_mode == "Mapper_multi":
+                self.fine_mapping = Mapper_multi(opts)
             
     def forward(self, x):
         s1,s2,s3 = x.size()
