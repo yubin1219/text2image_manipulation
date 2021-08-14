@@ -8,13 +8,6 @@ class LatentsDataset(Dataset):
 		return self.latents.shape[0]
 	
 	def __getitem__(self, index):
-		w = self.latents[index]
-		if w[0][0]==1:
-			t = "blonde hair"
-		elif w[0][1]==1:
-			t= "pink hair"
-		elif w[0][2]==1:
-			t = "blue hair"
-		elif w[0][3]==1:
-			t = "black hair"
-		return [w,t]
+		w_ori = self.latents[index]
+		t = "blonde hair"
+		return [w_ori, t]
