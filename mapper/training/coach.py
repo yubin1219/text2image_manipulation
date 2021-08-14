@@ -20,11 +20,10 @@ class Coach:
 		self.opts = opts
 
 		self.global_step = 0
-
-		self.device = 'cuda:0'
+		
+		self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 		self.opts.device = self.device
-
-		# Initialize network
+		#self.clip_model, _ = clip.load("ViT-B/32", device=self.device)
 		self.net = StyleCLIPMapper(self.opts).to(self.device)
 
 		# Initialize loss
@@ -51,8 +50,6 @@ class Coach:
 										  num_workers=int(self.opts.test_workers),
 										  drop_last=True)
 
-		self.text_inputs = torch.cat([clip.tokenize(self.opts.description)]).cuda()
-
 		# Initialize logger
 		log_dir = os.path.join(opts.exp_dir, 'logs')
 		os.makedirs(log_dir, exist_ok=True)
@@ -71,13 +68,17 @@ class Coach:
 		while self.global_step < self.opts.max_steps:
 			for batch_idx, batch in enumerate(self.train_dataloader):
 				self.optimizer.zero_grad()
-				w = batch
+				w, w_ori, t = batch
+				t = t[0]
+				text_inputs = torch.cat([clip.tokenize(t)]).to(self.device)
+				w_ori = w_ori.to(self.device)
 				w = w.to(self.device)
+				
 				with torch.no_grad():
-					x, _ = self.net.decoder([w], input_is_latent=True, randomize_noise=False, truncation=1)
-				w_hat = w + 0.1 * self.net.mapper(w)
+					x, _ = self.net.decoder([w_ori], input_is_latent=True, randomize_noise=False, truncation=1)
+				w_hat = w_ori + 0.1 * self.net.mapper(w)
 				x_hat, w_hat = self.net.decoder([w_hat], input_is_latent=True, return_latents=True, randomize_noise=False, truncation=1)
-				loss, loss_dict = self.calc_loss(w, x, w_hat, x_hat)
+				loss, loss_dict = self.calc_loss(w_ori, x, w_hat, x_hat, text_inputs)
 				loss.backward()
 				self.optimizer.step()
 
@@ -113,17 +114,17 @@ class Coach:
 		self.net.eval()
 		agg_loss_dict = []
 		for batch_idx, batch in enumerate(self.test_dataloader):
-			if batch_idx > 200:
-				break
-
-			w = batch
+			w, w_ori, t = batch
+			t = t[0]
+			text_inputs = torch.cat([clip.tokenize(t)]).to(self.device)
 
 			with torch.no_grad():
-				w = w.to(self.device).float()
-				x, _ = self.net.decoder([w], input_is_latent=True, randomize_noise=True, truncation=1)
+				w_ori = w_ori.to(self.device).float()
+				w = w.to(self.device).float() 
+				x, _ = self.net.decoder([w_ori], input_is_latent=True, randomize_noise=True, truncation=1)
 				w_hat = w + 0.1 * self.net.mapper(w)
 				x_hat, _ = self.net.decoder([w_hat], input_is_latent=True, randomize_noise=True, truncation=1)
-				loss, cur_loss_dict = self.calc_loss(w, x, w_hat, x_hat)
+				loss, cur_loss_dict = self.calc_loss(w_ori, x, w_hat, x_hat, text_inputs)
 			agg_loss_dict.append(cur_loss_dict)
 
 			# Logging related
@@ -161,30 +162,8 @@ class Coach:
 		return optimizer
 
 	def configure_datasets(self):
-		if self.opts.latents_train_path:
-			train_latents = torch.load(self.opts.latents_train_path)
-		else:
-			train_latents_z = torch.randn(self.opts.train_dataset_size, 512).cuda()
-			train_latents = []
-			for b in range(self.opts.train_dataset_size // self.opts.batch_size):
-				with torch.no_grad():
-					_, train_latents_b = self.net.decoder([train_latents_z[b: b + self.opts.batch_size]],
-														  truncation=0.7, truncation_latent=self.net.latent_avg, return_latents=True)
-					train_latents.append(train_latents_b)
-			train_latents = torch.cat(train_latents)
-
-		if self.opts.latents_test_path:
-			test_latents = torch.load(self.opts.latents_test_path)
-		else:
-			test_latents_z = torch.randn(self.opts.train_dataset_size, 512).cuda()
-			test_latents = []
-			for b in range(self.opts.test_dataset_size // self.opts.test_batch_size):
-				with torch.no_grad():
-					_, test_latents_b = self.net.decoder([test_latents_z[b: b + self.opts.test_batch_size]],
-													  truncation=0.7, truncation_latent=self.net.latent_avg, return_latents=True)
-					test_latents.append(test_latents_b)
-			test_latents = torch.cat(test_latents)
-
+		train_latents = torch.load(self.opts.train_data)
+    		test_latents = torch.load(self.opts.test_data)
 		train_dataset_celeba = LatentsDataset(latents=train_latents.cpu(),
 		                                      opts=self.opts)
 		test_dataset_celeba = LatentsDataset(latents=test_latents.cpu(),
@@ -195,7 +174,7 @@ class Coach:
 		print("Number of test samples: {}".format(len(test_dataset)))
 		return train_dataset, test_dataset
 
-	def calc_loss(self, w, x, w_hat, x_hat):
+	def calc_loss(self, w_ori, x, w_hat, x_hat, text_inputs):
 		loss_dict = {}
 		loss = 0.0
 		if self.opts.id_lambda > 0:
@@ -204,11 +183,11 @@ class Coach:
 			loss_dict['id_improve'] = float(sim_improvement)
 			loss = loss_id * self.opts.id_lambda
 		if self.opts.clip_lambda > 0:
-			loss_clip = self.clip_loss(x_hat, self.text_inputs).mean()
+			loss_clip = self.clip_loss(x_hat, text_inputs).mean()
 			loss_dict['loss_clip'] = float(loss_clip)
 			loss += loss_clip * self.opts.clip_lambda
 		if self.opts.latent_l2_lambda > 0:
-			loss_l2_latent = self.latent_l2_loss(w_hat, w)
+			loss_l2_latent = self.latent_l2_loss(w_hat, w_ori)
 			loss_dict['loss_l2_latent'] = float(loss_l2_latent)
 			loss += loss_l2_latent * self.opts.latent_l2_lambda
 		loss_dict['loss'] = float(loss)
