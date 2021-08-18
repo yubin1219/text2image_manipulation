@@ -29,11 +29,10 @@ class IDLoss(nn.Module):
         y_hat_feats = self.extract_feats(y_hat)
         y_feats = y_feats.detach()
         loss = 0
-        sim_improvement = 0
         count = 0
         for i in range(n_samples):
             diff_target = y_hat_feats[i].dot(y_feats[i])
             loss += 1 - diff_target
             count += 1
 
-        return loss / count, sim_improvement / count
+        return loss / count
