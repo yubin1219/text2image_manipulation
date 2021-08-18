@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from mapper import latent_mappers
+from mapper import latent_mappers #mapper_models
 from models.stylegan2.model import Generator
 
 
