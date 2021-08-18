@@ -9,7 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import criteria.clip_loss as clip_loss
 from criteria import id_loss
-from mapper.dataset.latents_dataset import LatentsDataset
+#from mapper.dataset.latents_dataset import LatentsDataset
 from mapper.styleclip_mapper import StyleCLIPMapper
 from mapper.training.ranger import Ranger
 from mapper.training import train_utils
@@ -178,9 +178,8 @@ class Coach:
 		loss_dict = {}
 		loss = 0.0
 		if self.opts.id_lambda > 0:
-			loss_id, sim_improvement = self.id_loss(x_hat, x)
-			loss_dict['loss_id'] = float(loss_id)
-			loss_dict['id_improve'] = float(sim_improvement)
+			loss_id = self.id_loss(x_hat, x)
+			loss_dict['loss_id'] = float(loss_id)			
 			loss = loss_id * self.opts.id_lambda
 		if self.opts.clip_lambda > 0:
 			loss_clip = self.clip_loss(x_hat, text_inputs).mean()
