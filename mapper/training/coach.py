@@ -155,7 +155,7 @@ class Coach:
 				w_ori = w_ori.to(self.device).float()
 				w = w.to(self.device).float() 
 				x, _ = self.net.decoder([w_ori], input_is_latent=True, randomize_noise=True, truncation=1)
-				w_hat = w + 0.1 * self.net.mapper(w)
+				w_hat = w_ori + 0.1 * self.net.mapper(w)
 				x_hat, _ = self.net.decoder([w_hat], input_is_latent=True, randomize_noise=True, truncation=1)
 				loss, cur_loss_dict = self.calc_loss(w_ori, x, w_hat, x_hat, text_inputs)
 			agg_loss_dict.append(cur_loss_dict)
