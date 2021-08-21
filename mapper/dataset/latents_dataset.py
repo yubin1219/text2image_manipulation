@@ -21,9 +21,9 @@ class LatentsDataset(Dataset):
 		w_ori = self.latents[index]
 		
       		if self.dataset_mode == "train":
-         		dataset_size = self.opts.train_dataset_size
+			dataset_size = self.opts.train_dataset_size
       		elif self.dataset_mode == "test":
-         		dataset_size = self.opts.test_dataset_size
+			dataset_size = self.opts.test_dataset_size
 			
       		if self.opts.data_mode == "hair":
          		hair_to_idx = {"Curly": 0, "Wavy": 1, "Long": 2, "Bobcut": 3, "Bangs": 4}
