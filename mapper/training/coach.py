@@ -197,7 +197,7 @@ class Coach:
 	def configure_datasets(self):
 		train_latents = torch.load(self.opts.train_data)
     		test_latents = torch.load(self.opts.test_data)
-		
+
 		if self.opts.text_embed_mode == "clip_encoder":
 			train_dataset_celeba = LatentsDataset_clip(latents=train_latents[:self.opts.train_dataset_size].cpu(),
 								   opts=self.opts, dataset_mode = "train")
