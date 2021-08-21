@@ -289,7 +289,7 @@ class LatentDataset(Dataset):
             em = em2 + em4 + em6
             m = torch.ones([18,1]).matmul(em.detach())
       
-      if self.opts.mapper_mode == "Mapper_sum":
+      if self.opts.mapper_mode == "Mapper_sum" or self.opts.mapper_mode == "Mapper_multi":
          w = w_ori + m
       elif self.opts.mapper_mode == "Mapper_cat":
          w = torch.cat([m, w_ori], dim = -1)
