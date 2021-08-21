@@ -7,6 +7,7 @@ class TrainOptions:
 
 	def initialize(self):
 		self.parser.add_argument('--exp_dir', type=str, help='Path to experiment output directory')
+		self.parser.add_argument('--mapper_mode', default='Mapper_sum', type=str, help='Which mapper mode to use')
 		self.parser.add_argument('--mapper_type', default='LevelsMapper', type=str, help='Which mapper to use')
 		self.parser.add_argument('--no_coarse_mapper', default=False, action="store_true")
 		self.parser.add_argument('--no_medium_mapper', default=False, action="store_true")
