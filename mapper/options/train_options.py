@@ -16,10 +16,10 @@ class TrainOptions:
 		self.parser.add_argument('--train_dataset_size', default=5000, type=int, help="Will be used only if no latents are given")
 		self.parser.add_argument('--test_dataset_size', default=1000, type=int, help="Will be used only if no latents are given")
 
-		self.parser.add_argument('--batch_size', default=2, type=int, help='Batch size for training')
+		self.parser.add_argument('--batch_size', default=1, type=int, help='Batch size for training')
 		self.parser.add_argument('--test_batch_size', default=1, type=int, help='Batch size for testing and inference')
-		self.parser.add_argument('--workers', default=4, type=int, help='Number of train dataloader workers')
-		self.parser.add_argument('--test_workers', default=2, type=int, help='Number of test/inference dataloader workers')
+		self.parser.add_argument('--workers', default=1, type=int, help='Number of train dataloader workers')
+		self.parser.add_argument('--test_workers', default=1, type=int, help='Number of test/inference dataloader workers')
 
 		self.parser.add_argument('--learning_rate', default=0.5, type=float, help='Optimizer learning rate')
 		self.parser.add_argument('--optim_name', default='ranger', type=str, help='Which optimizer to use')
@@ -39,7 +39,7 @@ class TrainOptions:
 		self.parser.add_argument('--val_interval', default=2000, type=int, help='Validation interval')
 		self.parser.add_argument('--save_interval', default=2000, type=int, help='Model checkpoint interval')
 
-		self.parser.add_argument('--description', required=True, type=str, help='Driving text prompt')
+		#self.parser.add_argument('--description', required=True, type=str, help='Driving text prompt')
 
 
 	def parse(self):
