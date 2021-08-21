@@ -9,7 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import criteria.clip_loss as clip_loss
 from criteria import id_loss
-#from mapper.dataset.latents_dataset import LatentsDataset
+from mapper.dataset.latents_dataset import LatentsDataset, LatentsDataset_clip
 from mapper.styleclip_mapper import StyleCLIPMapper
 from mapper.training.ranger import Ranger
 from mapper.training import train_utils
@@ -23,7 +23,10 @@ class Coach:
 		
 		self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 		self.opts.device = self.device
-		#self.clip_model, _ = clip.load("ViT-B/32", device=self.device)
+		
+		if self.opts.text_embed_mode == "clip_encoder":
+			self.clip_model, _ = clip.load("ViT-B/32", device=self.device)
+			
 		self.net = StyleCLIPMapper(self.opts).to(self.device)
 
 		# Initialize loss
@@ -39,16 +42,10 @@ class Coach:
 
 		# Initialize dataset
 		self.train_dataset, self.test_dataset = self.configure_datasets()
-		self.train_dataloader = DataLoader(self.train_dataset,
-										   batch_size=self.opts.batch_size,
-										   shuffle=True,
-										   num_workers=int(self.opts.workers),
-										   drop_last=True)
-		self.test_dataloader = DataLoader(self.test_dataset,
-										  batch_size=self.opts.test_batch_size,
-										  shuffle=False,
-										  num_workers=int(self.opts.test_workers),
-										  drop_last=True)
+		self.train_dataloader = DataLoader(self.train_dataset, batch_size=self.opts.batch_size, shuffle=True,
+						   num_workers=int(self.opts.workers), drop_last=True)
+		self.test_dataloader = DataLoader(self.test_dataset, batch_size=self.opts.test_batch_size, shuffle=False,
+						  num_workers=int(self.opts.test_workers), drop_last=True)
 
 		# Initialize logger
 		log_dir = os.path.join(opts.exp_dir, 'logs')
@@ -68,9 +65,27 @@ class Coach:
 		while self.global_step < self.opts.max_steps:
 			for batch_idx, batch in enumerate(self.train_dataloader):
 				self.optimizer.zero_grad()
-				w, w_ori, t = batch
-				t = t[0]
+				
+				if self.opts.text_embed_mode == "clip_encoder":
+					w_ori, t = batch
+				else:
+					w, w_ori, t = batch
+					
+				if self.opts.mapper_mode == "Mapper_multi":
+					t = [t[i][0] for i in range(len(t))]
+				else:
+					t = t[0]
+					
 				text_inputs = torch.cat([clip.tokenize(t)]).to(self.device)
+				if self.opts.text_embed_mode == "clip_encoder":
+					with torch.no_grad():
+						text_features = self.clip_model.encode_text(text_inputs)
+					text_latents = torch.ones([18,1]).matmul(text_features.float().detach().cpu()).unsqueeze(0)
+					if self.opts.mapper_mode == "Mapper_sum":
+						w = w_ori + text_latents
+					elif self.opts.mapper_mode == "Mapper_cat":
+						w = torch.cat([text_latents, w_ori], dim = -1)
+						
 				w_ori = w_ori.to(self.device)
 				w = w.to(self.device)
 				
@@ -85,7 +100,8 @@ class Coach:
 				# Logging related
 				if self.global_step % self.opts.image_interval == 0 or (
 						self.global_step < 1000 and self.global_step % 1000 == 0):
-					self.parse_and_log_images(x, x_hat, title='images_train')
+					self.parse_and_log_images(x, x_hat, t, title='images_train')
+					
 				if self.global_step % self.opts.board_interval == 0:
 					self.print_metrics(loss_dict, prefix='train')
 					self.log_metrics(loss_dict, prefix='train')
@@ -97,6 +113,8 @@ class Coach:
 					if val_loss_dict and (self.best_val_loss is None or val_loss_dict['loss'] < self.best_val_loss):
 						self.best_val_loss = val_loss_dict['loss']
 						self.checkpoint_me(val_loss_dict, is_best=True)
+					else:
+						self.checkpoint_me(loss_dict, is_best=False)
 
 				if self.global_step % self.opts.save_interval == 0 or self.global_step == self.opts.max_steps:
 					if val_loss_dict is not None:
@@ -105,7 +123,6 @@ class Coach:
 						self.checkpoint_me(loss_dict, is_best=False)
 
 				if self.global_step == self.opts.max_steps:
-					print('OMG, finished training!')
 					break
 
 				self.global_step += 1
@@ -114,9 +131,25 @@ class Coach:
 		self.net.eval()
 		agg_loss_dict = []
 		for batch_idx, batch in enumerate(self.test_dataloader):
-			w, w_ori, t = batch
-			t = t[0]
+			if self.opts.text_embed_mode == "clip_encoder":
+				w_ori, t = batch
+			else:
+				w, w_ori, t = batch
+					
+			if self.opts.mapper_mode == "Mapper_multi":
+				t = [t[i][0] for i in range(len(t))]
+			else:
+				t = t[0]
+					
 			text_inputs = torch.cat([clip.tokenize(t)]).to(self.device)
+			if self.opts.text_embed_mode == "clip_encoder":
+				with torch.no_grad():
+					text_features = self.clip_model.encode_text(text_inputs)
+				text_latents = torch.ones([18,1]).matmul(text_features.float().detach().cpu()).unsqueeze(0)
+				if self.opts.mapper_mode == "Mapper_sum":
+					w = w_ori + text_latents
+				elif self.opts.mapper_mode == "Mapper_cat":
+					w = torch.cat([text_latents, w_ori], dim = -1)
 
 			with torch.no_grad():
 				w_ori = w_ori.to(self.device).float()
@@ -128,7 +161,7 @@ class Coach:
 			agg_loss_dict.append(cur_loss_dict)
 
 			# Logging related
-			self.parse_and_log_images(x, x_hat, title='images_val', index=batch_idx)
+			self.parse_and_log_images(x, x_hat, t, title='images_val', index=batch_idx)
 
 			# For first step just do sanity test on small amount of data
 			if self.global_step == 0 and batch_idx >= 4:
@@ -164,10 +197,16 @@ class Coach:
 	def configure_datasets(self):
 		train_latents = torch.load(self.opts.train_data)
     		test_latents = torch.load(self.opts.test_data)
-		train_dataset_celeba = LatentsDataset(latents=train_latents.cpu(),
-		                                      opts=self.opts)
-		test_dataset_celeba = LatentsDataset(latents=test_latents.cpu(),
-		                                      opts=self.opts)
+		if self.opts.text_embed_mode == "clip_encoder":
+			train_dataset_celeba = LatentsDataset_clip(latents=train_latents[:self.opts.train_dataset_size].cpu(),
+								   opts=self.opts, dataset_mode = "train")
+			test_dataset_celeba = LatentsDataset_clip(latents=test_latents[:self.opts.test_dataset_size].cpu(),
+								  opts=self.opts, dataset_mode = "test")
+		else:
+			train_dataset_celeba = LatentsDataset(latents=train_latents[:self.opts.train_dataset_size].cpu(),
+								   opts=self.opts, dataset_mode = "train")
+			test_dataset_celeba = LatentsDataset(latents=test_latents[:self.opts.test_dataset_size].cpu(),
+								  opts=self.opts, dataset_mode = "test")
 		train_dataset = train_dataset_celeba
 		test_dataset = test_dataset_celeba
 		print("Number of training samples: {}".format(len(train_dataset)))
@@ -203,11 +242,11 @@ class Coach:
 		for key, value in metrics_dict.items():
 			print('\t{} = '.format(key), value)
 
-	def parse_and_log_images(self, x, x_hat, title, index=None):
+	def parse_and_log_images(self, x, x_hat, t, title, index=None):
 		if index is None:
-			path = os.path.join(self.log_dir, title, f'{str(self.global_step).zfill(5)}.jpg')
+			path = os.path.join(self.log_dir, title, f'{str(self.global_step).zfill(5)}_{t}.jpg')
 		else:
-			path = os.path.join(self.log_dir, title, f'{str(self.global_step).zfill(5)}_{str(index).zfill(5)}.jpg')
+			path = os.path.join(self.log_dir, title, f'{str(self.global_step).zfill(5)}_{str(index).zfill(5)}_{t}.jpg')
 		os.makedirs(os.path.dirname(path), exist_ok=True)
 		torchvision.utils.save_image(torch.cat([x.detach().cpu(), x_hat.detach().cpu()]), path,
 									 normalize=True, scale_each=True, range=(-1, 1), nrow=self.opts.batch_size)
