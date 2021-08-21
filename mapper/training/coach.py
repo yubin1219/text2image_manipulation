@@ -9,7 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import criteria.clip_loss as clip_loss
 from criteria import id_loss
-from mapper.dataset.latents_dataset import LatentsDataset, LatentsDataset_clip
+from mapper.dataset.latents_dataset import LatentDataset, LatentDataset_clip
 from mapper.styleclip_mapper import StyleCLIPMapper
 from mapper.training.ranger import Ranger
 from mapper.training import train_utils
@@ -198,14 +198,14 @@ class Coach:
 		train_latents = torch.load(self.opts.train_data)
 		test_latents = torch.load(self.opts.test_data)
 		if self.opts.text_embed_mode == "clip_encoder":
-			train_dataset_celeba = LatentsDataset_clip(latents=train_latents[:self.opts.train_dataset_size].cpu(),
+			train_dataset_celeba = LatentDataset_clip(latents=train_latents[:self.opts.train_dataset_size].cpu(),
 								   opts=self.opts, dataset_mode = "train")
-			test_dataset_celeba = LatentsDataset_clip(latents=test_latents[:self.opts.test_dataset_size].cpu(),
+			test_dataset_celeba = LatentDataset_clip(latents=test_latents[:self.opts.test_dataset_size].cpu(),
 								  opts=self.opts, dataset_mode = "test")
 		else:
-			train_dataset_celeba = LatentsDataset(latents=train_latents[:self.opts.train_dataset_size].cpu(),
+			train_dataset_celeba = LatentDataset(latents=train_latents[:self.opts.train_dataset_size].cpu(),
 								   opts=self.opts, dataset_mode = "train")
-			test_dataset_celeba = LatentsDataset(latents=test_latents[:self.opts.test_dataset_size].cpu(),
+			test_dataset_celeba = LatentDataset(latents=test_latents[:self.opts.test_dataset_size].cpu(),
 								  opts=self.opts, dataset_mode = "test")
 		train_dataset = train_dataset_celeba
 		test_dataset = test_dataset_celeba
