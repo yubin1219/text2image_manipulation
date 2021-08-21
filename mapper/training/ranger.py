@@ -4,12 +4,13 @@ from torch.optim.optimizer import Optimizer
 
 
 class Ranger(Optimizer):
-	def __init__(self, params, lr=1e-3,  # lr
-				 alpha=0.5, k=6, N_sma_threshhold=5,  # Ranger options
-				 betas=(.95, 0.999), eps=1e-5, weight_decay=0,  # Adam options
-				 use_gc=True, gc_conv_only=False
-				 # Gradient centralization on or off, applied to conv layers only or conv + fc layers
-				 ):
+	def __init__(self, params, 					# net.parameters()
+		     lr=1e-3,  						# lr
+		     alpha=0.5, k=6, N_sma_threshhold=5,  		# Ranger options
+		     betas=(.95, 0.999), eps=1e-5, weight_decay=0,  	# Adam options
+		     use_gc=True, 					# Gradient centralization on or off
+		     gc_conv_only=False  				# applied to conv layers only or conv + fc layers
+		    ):
 
 		# parameter checks
 		if not 0.0 <= alpha <= 1.0:
