@@ -7,8 +7,9 @@ class TrainOptions:
 
 	def initialize(self):
 		self.parser.add_argument('--exp_dir', type=str, help='Path to experiment output directory')
-		#self.parser.add_argument('--device', default='cuda' ,type=str, help='Which device to use')
-		self.parser.add_argument('--mapper_mode', default='Mapper_sum', type=str, help='Which mapper mode to use')
+		self.parser.add_argument('--data_mode', default='color', type=str, help='Which style data to use') # color / hair / female / male / multi
+		self.parser.add_argument('--text_embed_mode', default='nn.embedding', type=str, help='use clip text encoder or torch.nn.embedding')
+		self.parser.add_argument('--mapper_mode', default='Mapper_sum', type=str, help='Which mapper mode to use') # Mapper_sum / Mapper_cat / Mapper_multi
 		self.parser.add_argument('--mapper_type', default='LevelsMapper', type=str, help='Which mapper to use')
 		self.parser.add_argument('--no_coarse_mapper', default=False, action="store_true")
 		self.parser.add_argument('--no_medium_mapper', default=False, action="store_true")
