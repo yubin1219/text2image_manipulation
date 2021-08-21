@@ -249,7 +249,7 @@ class LatentDataset(Dataset):
             em = em4 + em5
             m = torch.ones([18,1]).matmul(em.detach())
 
-         elif int(18*dataset_size / 26) <= index < int(19 *_dataset_size / 26):
+         elif int(18*dataset_size / 26) <= index < int(19 *dataset_size / 26):
             t = ["Elsa from Frozen","wavy hair","pink hair"]
             em = em1 + em3 + em5
             m = torch.ones([18,1]).matmul(em.detach())
