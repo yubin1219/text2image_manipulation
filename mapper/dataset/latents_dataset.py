@@ -18,7 +18,7 @@ class LatentDataset(Dataset):
       self.dataset_mode = dataset_mode
     
    def __len__(self):
-      return self.latnets.shape[0]
+      return self.latents.shape[0]
     
    def __getitem__(self, index):
       torch.manual_seed(1)
@@ -304,7 +304,7 @@ class LatentDataset_clip(Dataset):
       self.dataset_mode = dataset_mode
     
    def __len__(self):
-      return self.latnets.shape[0]
+      return self.latents.shape[0]
     
    def __getitem__(self, index):
       w_ori = self.latents[index]
