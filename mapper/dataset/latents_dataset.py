@@ -151,12 +151,12 @@ class LatentDataset(Dataset):
          multi_to_idx = {"Elsa": 0, "Emma Watson": 1, "wavy": 2, "bangs": 3, "pink": 4, "black": 5}
          embeds = nn.Embedding(6,512)
 
-         lookup_tensor1 = torch.tensor([class_to_idx["Elsa"]], dtype = torch.long)
-         lookup_tensor2 = torch.tensor([class_to_idx["Emma Watson"]], dtype = torch.long)
-         lookup_tensor3 = torch.tensor([class_to_idx["wavy"]], dtype = torch.long)
-         lookup_tensor4 = torch.tensor([class_to_idx["bangs"]], dtype = torch.long)
-         lookup_tensor5 = torch.tensor([class_to_idx["pink"]], dtype = torch.long)
-         lookup_tensor6 = torch.tensor([class_to_idx["black"]], dtype = torch.long)
+         lookup_tensor1 = torch.tensor([multi_to_idx["Elsa"]], dtype = torch.long)
+         lookup_tensor2 = torch.tensor([multi_to_idx["Emma Watson"]], dtype = torch.long)
+         lookup_tensor3 = torch.tensor([multi_to_idx["wavy"]], dtype = torch.long)
+         lookup_tensor4 = torch.tensor([multi_to_idx["bangs"]], dtype = torch.long)
+         lookup_tensor5 = torch.tensor([multi_to_idx["pink"]], dtype = torch.long)
+         lookup_tensor6 = torch.tensor([multi_to_idx["black"]], dtype = torch.long)
 
          em1 = embeds(lookup_tensor1)
          em2 = embeds(lookup_tensor2)
