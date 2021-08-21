@@ -54,7 +54,7 @@ class Coach:
 		self.logger = SummaryWriter(log_dir=log_dir)
 
 		# Initialize checkpoint dir
-		self.checkpoint_dir = os.path.join(opts.exp_dir, 'checkpoints')
+		self.checkpoint_dir = os.path.join(opts.exp_dir, 'checkpoints_')
 		os.makedirs(self.checkpoint_dir, exist_ok=True)
 		self.best_val_loss = None
 		if self.opts.save_interval is None:
