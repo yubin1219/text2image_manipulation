@@ -161,7 +161,7 @@ class Coach:
 			agg_loss_dict.append(cur_loss_dict)
 
 			# Logging related
-			if self.global_step % self.image_interval == 0 and batch_idx % 20 == 0:
+			if self.global_step % self.opts.image_interval == 0 and batch_idx % 20 == 0:
 				self.parse_and_log_images(x, x_hat, t, title='images_val', index=batch_idx)
 
 			# For first step just do sanity test on small amount of data
