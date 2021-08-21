@@ -37,7 +37,7 @@ class TrainOptions:
 		self.parser.add_argument('--checkpoint_path', default=None, type=str, help='Path to StyleCLIPModel model checkpoint')
 
 		self.parser.add_argument('--max_steps', default=50000, type=int, help='Maximum number of training steps')
-		self.parser.add_argument('--image_interval', default=100, type=int, help='Interval for logging train images during training')
+		self.parser.add_argument('--image_interval', default=1000, type=int, help='Interval for logging train images during training')
 		self.parser.add_argument('--board_interval', default=50, type=int, help='Interval for logging metrics to tensorboard')
 		self.parser.add_argument('--val_interval', default=2000, type=int, help='Validation interval')
 		self.parser.add_argument('--save_interval', default=2000, type=int, help='Model checkpoint interval')
