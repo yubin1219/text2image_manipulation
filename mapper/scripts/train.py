@@ -3,8 +3,12 @@ import json
 import sys
 import pprint
 from argparse import Namespace
+
+sys.path.append(".")
+sys.path.append("..")
+
 #from mapper.options.train_options import TrainOptions
-from training.coach import Coach
+from mapper.training.coach import Coach
 
 
 def main(opts):
