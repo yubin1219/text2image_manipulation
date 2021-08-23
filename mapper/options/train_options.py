@@ -14,9 +14,9 @@ class TrainOptions:
 		self.parser.add_argument('--no_coarse_mapper', default=False, action="store_true")
 		self.parser.add_argument('--no_medium_mapper', default=False, action="store_true")
 		self.parser.add_argument('--no_fine_mapper', default=False, action="store_true")
-		self.parser.add_argument('--latents_train_path', default="train_faces.pt", type=str, help="The latents for the training")
-		self.parser.add_argument('--latents_test_path', default="test_faces.pt", type=str, help="The latents for the validation")
-		self.parser.add_argument('--train_dataset_size', default=5000, type=int, help="Will be used only if no latents are given")
+		self.parser.add_argument('--latents_train_path', default="train_data.pt", type=str, help="The latents for the training")
+		self.parser.add_argument('--latents_test_path', default="test_data.pt", type=str, help="The latents for the validation")
+		self.parser.add_argument('--train_dataset_size', default=20000, type=int, help="Will be used only if no latents are given")
 		self.parser.add_argument('--test_dataset_size', default=1000, type=int, help="Will be used only if no latents are given")
 
 		self.parser.add_argument('--batch_size', default=1, type=int, help='Batch size for training')
@@ -31,12 +31,12 @@ class TrainOptions:
 		self.parser.add_argument('--clip_lambda', default=1.0, type=float, help='CLIP loss multiplier factor')
 		self.parser.add_argument('--latent_l2_lambda', default=0.8, type=float, help='Latent L2 loss multiplier factor')
 
-		self.parser.add_argument('--stylegan_weights', default='../pretrained_models/stylegan2-ffhq-config-f.pt', type=str, help='Path to StyleGAN model weights')
+		self.parser.add_argument('--stylegan_weights', default='../stylegan2-ffhq-config-f.pt', type=str, help='Path to StyleGAN model weights')
 		self.parser.add_argument('--stylegan_size', default=1024, type=int)
-		self.parser.add_argument('--ir_se50_weights', default='../pretrained_models/model_ir_se50.pth', type=str, help="Path to facial recognition network used in ID loss")
+		self.parser.add_argument('--ir_se50_weights', default='../model_ir_se50.pth', type=str, help="Path to facial recognition network used in ID loss")
 		self.parser.add_argument('--checkpoint_path', default=None, type=str, help='Path to StyleCLIPModel model checkpoint')
 
-		self.parser.add_argument('--max_steps', default=50000, type=int, help='Maximum number of training steps')
+		self.parser.add_argument('--max_steps', default=100000, type=int, help='Maximum number of training steps')
 		self.parser.add_argument('--image_interval', default=1000, type=int, help='Interval for logging train images during training')
 		self.parser.add_argument('--board_interval', default=50, type=int, help='Interval for logging metrics to tensorboard')
 		self.parser.add_argument('--val_interval', default=2000, type=int, help='Validation interval')
