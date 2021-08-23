@@ -7,7 +7,7 @@ from argparse import Namespace
 sys.path.append(".")
 sys.path.append("..")
 
-#from mapper.options.train_options import TrainOptions
+from mapper.options.train_options import TrainOptions
 from mapper.training.coach import Coach
 
 
@@ -26,7 +26,7 @@ def main(opts):
 
 
 if __name__ == '__main__':
-	opt = {"exp_dir": "results/",		# 저장할 파일
+	"""opt = {"exp_dir": "results/",		# 저장할 파일
 	       "data_mode": "color",		# 변화시킬 style ["hair", "color", "female", "male", "multi"]
 	       "text_embed_mode": None,		# "clip_encoder" : CLIP text encoder로 얻은 text embedding vector 사용 , None : nn.embedding으로 얻은 text embedding vector 사용
 	       "train_data": "train_data.pt",	# "train_female" : female images만으로 구성 , "train_male" : male images만으로 구성
@@ -57,6 +57,6 @@ if __name__ == '__main__':
 	       "save_interval" : 1000,		# global step 몇 회 간격으로 모델 저장할 것인지
 	       "checkpoint_path" : None		# 학습된 모델 파일 불러와서 진행할 시 입력 예) "color_sum.pt"
 	      }
-	opts = Namespace(**opt)
-	#opts = TrainOptions().parse()
+	opts = Namespace(**opt)"""
+	opts = TrainOptions().parse()
 	main(opts)
