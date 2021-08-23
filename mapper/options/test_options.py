@@ -1,8 +1,6 @@
 from argparse import ArgumentParser
 
-
 class TestOptions:
-
 	def __init__(self):
 		self.parser = ArgumentParser()
 		self.initialize()
@@ -14,8 +12,8 @@ class TestOptions:
 		self.parser.add_argument('--couple_outputs', action='store_true', help='Whether to also save inputs + outputs side-by-side')
 
 		self.parser.add_argument('--text_embed_mode', default='nn.embedding', type=str, help='Use CLIP text encoder or not')
-    self.parser.add_argument('--mapper_mode', default='Mapper_sum', type=str, help='Which mapper mode to use')
-    self.parser.add_argument('--mapper_type', default='LevelsMapper', type=str, help='Which mapper to use')
+    		self.parser.add_argument('--mapper_mode', default='Mapper_sum', type=str, help='Which mapper mode to use')
+    		self.parser.add_argument('--mapper_type', default='LevelsMapper', type=str, help='Which mapper to use')
 		self.parser.add_argument('--no_coarse_mapper', default=False, action="store_true")
 		self.parser.add_argument('--no_medium_mapper', default=False, action="store_true")
 		self.parser.add_argument('--no_fine_mapper', default=False, action="store_true")
