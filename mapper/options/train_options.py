@@ -6,7 +6,7 @@ class TrainOptions:
 		self.initialize()
 
 	def initialize(self):
-		self.parser.add_argument('--exp_dir', type=str, help='Path to experiment output directory')
+		self.parser.add_argument('--exp_dir', default='results/', type=str, help='Path to experiment output directory')
 		self.parser.add_argument('--data_mode', default='color', type=str, help='Which style data to use') # color / hair / female / male / multi
 		self.parser.add_argument('--text_embed_mode', default='nn.embedding', type=str, help='use clip text encoder or torch.nn.embedding')
 		self.parser.add_argument('--mapper_mode', default='Mapper_sum', type=str, help='Which mapper mode to use') # Mapper_sum / Mapper_cat / Mapper_multi
@@ -14,8 +14,8 @@ class TrainOptions:
 		self.parser.add_argument('--no_coarse_mapper', default=False, action="store_true")
 		self.parser.add_argument('--no_medium_mapper', default=False, action="store_true")
 		self.parser.add_argument('--no_fine_mapper', default=False, action="store_true")
-		self.parser.add_argument('--latents_train_path', default="train_data.pt", type=str, help="The latents for the training")
-		self.parser.add_argument('--latents_test_path', default="test_data.pt", type=str, help="The latents for the validation")
+		self.parser.add_argument('--train_data', default="train_data.pt", type=str, help="The latents for the training")
+		self.parser.add_argument('--test_data', default="test_data.pt", type=str, help="The latents for the validation")
 		self.parser.add_argument('--train_dataset_size', default=20000, type=int, help="Will be used only if no latents are given")
 		self.parser.add_argument('--test_dataset_size', default=1000, type=int, help="Will be used only if no latents are given")
 
