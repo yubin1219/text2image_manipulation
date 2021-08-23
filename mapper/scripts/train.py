@@ -3,9 +3,6 @@ import json
 import sys
 import pprint
 
-sys.path.append(".")
-sys.path.append("..")
-
 from mapper.options.train_options import TrainOptions
 from mapper.training.coach import Coach
 
