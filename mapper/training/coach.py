@@ -24,9 +24,11 @@ class Coach:
 		self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 		self.opts.device = self.device
 		
+		# Use text embedding vector from CLIP text encoder
 		if self.opts.text_embed_mode == "clip_encoder":
 			self.clip_model, _ = clip.load("ViT-B/32", device=self.device)
-			
+		
+		# Model
 		self.net = StyleCLIPMapper(self.opts).to(self.device)
 
 		# Initialize loss
@@ -67,9 +69,9 @@ class Coach:
 				self.optimizer.zero_grad()
 				
 				if self.opts.text_embed_mode == "clip_encoder":
-					w_ori, t = batch
+					w_ori, t = batch # Original latent vector and text
 				else:
-					w, w_ori, t = batch
+					w, w_ori, t = batch # Latent vector combined with text embedding vector and original latent vector and text
 					
 				if self.opts.mapper_mode == "Mapper_multi":
 					t = [t[i][0] for i in range(len(t))]
@@ -77,10 +79,14 @@ class Coach:
 					t = t[0]
 					
 				text_inputs = torch.cat([clip.tokenize(t)]).to(self.device)
+				
 				if self.opts.text_embed_mode == "clip_encoder":
+					# Get text embedding vector from CLIP text encoder
 					with torch.no_grad():
 						text_features = self.clip_model.encode_text(text_inputs)
 					text_latents = torch.ones([18,1]).matmul(text_features.float().detach().cpu()).unsqueeze(0)
+					
+					# Original latent vector combined with text embedding vector
 					if self.opts.mapper_mode == "Mapper_sum":
 						w = w_ori + text_latents
 					elif self.opts.mapper_mode == "Mapper_cat":
@@ -89,10 +95,17 @@ class Coach:
 				w_ori = w_ori.to(self.device)
 				w = w.to(self.device)
 				
+				# Generate original image
 				with torch.no_grad():
 					x, _ = self.net.decoder([w_ori], input_is_latent=True, randomize_noise=False, truncation=1)
+				
+				# Latent vector modified for text conditions
 				w_hat = w_ori + 0.1 * self.net.mapper(w)
+				
+				# Generate image that have been stylized by textual conditions
 				x_hat, w_hat = self.net.decoder([w_hat], input_is_latent=True, return_latents=True, randomize_noise=False, truncation=1)
+				
+				# Calculate loss
 				loss, loss_dict = self.calc_loss(w_ori, x, w_hat, x_hat, text_inputs)
 				loss.backward()
 				self.optimizer.step()
@@ -112,7 +125,7 @@ class Coach:
 					val_loss_dict = self.validate()
 					if val_loss_dict and (self.best_val_loss is None or val_loss_dict['loss'] < self.best_val_loss):
 						self.best_val_loss = val_loss_dict['loss']
-						self.checkpoint_me(val_loss_dict, is_best=True)
+						self.checkpoint_me(val_loss_dict, is_best=True) # Update best model
 					else:
 						self.checkpoint_me(loss_dict, is_best=False)
 
@@ -122,6 +135,7 @@ class Coach:
 					else:
 						self.checkpoint_me(loss_dict, is_best=False)
 
+				# End of Training
 				if self.global_step == self.opts.max_steps:
 					break
 
