@@ -32,7 +32,7 @@ if __name__ == '__main__':
 	       "train_data": "train_data.pt",	# "train_female" : female images만으로 구성 , "train_male" : male images만으로 구성
 	       "test_data" : "test_data.pt",	# "test_female" , "test_male"
 	       "mapper_mode" : "Mapper_sum", 	# "Mapper_cat" : text vector와 concat , "Mapper_multi" : 하나의 모델에서 여러 style 학습
-	       "mapper_type" : "LevelMapper",	# "SingleMapper" : mapper를 3부분(coarse/medium/fine)으로 나누지 않음
+	       "mapper_type" : "LevelsMapper",	# "SingleMapper" : mapper를 3부분(coarse/medium/fine)으로 나누지 않음
 	       "no_coarse_mapper" : False,	# True : coarse mapper 사용하지 않음 , False : coarse mapper 사용함
 	       "no_medium_mapper" : False,	# True : medium mapper 사용하지 않음 , False : medium mapper 사용함
 	       "no_fine_mapper" : False,	# True : fine mapper 사용하지 않음 , False : fine mapper 사용함
