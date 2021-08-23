@@ -4,7 +4,7 @@ import sys
 import pprint
 from argparse import Namespace
 #from mapper.options.train_options import TrainOptions
-from mapper.training.coach import Coach
+from training.coach import Coach
 
 
 def main(opts):
