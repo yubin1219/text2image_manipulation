@@ -35,7 +35,7 @@ if __name__ == '__main__':
 	       "mapper_type" : "LevelMapper",	# "SingleMapper" : mapper를 3부분(coarse/medium/fine)으로 나누지 않음
 	       "no_coarse_mapper" : False,	# True : coarse mapper 사용하지 않음 , False : coarse mapper 사용함
 	       "no_medium_mapper" : False,	# True : medium mapper 사용하지 않음 , False : medium mapper 사용함
-	       "no_fine_mapper" : Fasle,	# True : fine mapper 사용하지 않음 , False : fine mapper 사용함
+	       "no_fine_mapper" : False,	# True : fine mapper 사용하지 않음 , False : fine mapper 사용함
 	       "train_dataset_size" : 5000,	# 사용할 Train data 크기
 	       "test_dataset_size" : 1000,	# 사용할 Validation data 크기
 	       "batch_size" : 1,		# Train set batch size
