@@ -21,7 +21,7 @@ class TestOptions:
 
 
 		self.parser.add_argument('--test_batch_size', default=1, type=int, help='Batch size for testing and inference')
-		self.parser.add_argument('--latents_test_path', default=None, type=str, help="The latents for the validation")
+		self.parser.add_argument('--test_data', default=None, type=str, help="The latents for the validation")
 		self.parser.add_argument('--test_workers', default=1, type=int, help='Number of test/inference dataloader workers')
 		self.parser.add_argument('--work_in_stylespace', default=False, action='store_true')
 
