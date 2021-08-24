@@ -24,7 +24,7 @@ def main(opts):
 
 
 if __name__ == '__main__':
-  """
+	"""
 	opt = {"exp_dir": "results/",		# 저장할 파일
 	       "data_mode": "color",		# 변화시킬 style ["hair", "color", "female", "male", "multi"]
 	       "text_embed_mode": None,		# "clip_encoder" : CLIP text encoder로 얻은 text embedding vector 사용 , None : nn.embedding으로 얻은 text embedding vector 사용
