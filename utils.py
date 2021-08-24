@@ -19,17 +19,14 @@ google_drive_paths = {
     "mapper/pretrained/zuckerberg.pt": "https://drive.google.com/uc?id=1NjDcMUL8G-pO3i_9N6EPpQNXeMc3Ar1r",
     
     "mapper/pretrained/Anna.pt": "https://drive.google.com/file/d/1Vaw5GPEWlLn7DReu8lOfj4f3A_t-KHsl",
-    "mapper/pretrained/ash_hair.pt":"https://drive.google.com/file/d/1w85GRTHNyI4e-Kxx6YKrUtqDPoNJU5pI",
     "mapper/pretrained/Bangs.pt":"https://drive.google.com/file/d/1EaxNeAxC2_cPoI-QyL_VZNp-yg79xPw6",
     "mapper/pretrained/Blue_eyes_wavy.pt": "https://drive.google.com/file/d/14e0Uqe3CyDPY7nSU3iLweJwKj3EmltvF", # blue eyes & wavy hair
     "mapper/pretrained/blue_eyes.pt":"https://drive.google.com/file/d/1Z0s2iNaMlhm0CHjtGbvEL3kIdqF5Wq3e",
     "mapper/pretrained/Cold_face.pt": "https://drive.google.com/file/d/1sUAqfc-7Kxm7kQieMxq5eDfOSNsAwUzt",
     "mapper/pretrained/Elsa.pt": "https://drive.google.com/file/d/1YDyYL8katr6yvY_EDU14EOpE7Ay3i-83",
     "mapper/pretrained/Emma_Watson.pt":"https://drive.google.com/file/d/1LjlunghdYG91Z7XZiBEDeht1WTIAHGNO",
-    "mapper/pretrained/Evil.pt": "https://drive.google.com/file/d/1vHyOzNGakXQJfXMYinwAHcbQ62LNwbMW",
     "mapper/pretrained/IronMan.pt": "https://drive.google.com/file/d/1TLYiKHR3i0_W3uiQ6TqB2vggjn3Gzl6o",
     "mapper/pretrained/Moana.pt": "https://drive.google.com/file/d/1ZZJBI2qDRD5ZeA0QqPrzXChXNx9qT8RU",
-    "mapper/pretrained/Pink_hair.pt": "https://drive.google.com/file/d/19aer_dJNRGEUvc3_vurCTQO4719grV1h",
     "mapper/pretrained/wavy.pt":"https://drive.google.com/file/d/1VEtSxJ8yu6PL-pwj5NOz3Q7VwUFtSZQe",
 
     "example_celebs.pt": "https://drive.google.com/uc?id=1VL3lP4avRhz75LxSza6jgDe-pHd2veQG"
