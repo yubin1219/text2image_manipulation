@@ -188,3 +188,23 @@ def module_combine(test_opts):
   image = ToPILImage()(make_grid(result.detach().cpu(), normalize=True, scale_each=True, value_range=(-1, 1), padding=0))
   h, w = image.size
   return image.resize((h // 2, w // 2))
+
+if __name__ == '__main__':
+  """
+  celeb_female = ["Elsa", "Anna", "Emma Stone", "Anne Hathaway", "Scarlett Johansson"]
+  celeb_male = ["Iron man", "Dicaprio", "Zuckerberg", "Tom Holland"]
+  hair_sum or hair_cat = ["curly", "wavy", "long", "bobcut" , "bangs"]
+  color_sum or hair_cat = ["blonde", "pink", "blue", "black"]
+  
+  Disney_clip = ["Elsa", "Anna", "Rapunzel", "Ariel"]
+  hair_clip = ["wavy", "long", "bangs", "bobcut"]
+  color_clip = ["blonde", "red", "pink", "blue", "purple", "brown", "black"]
+  """
+  test_options = {"exp_dir": "results/",
+                "latent_path": "test_female.pt",
+                "intermediate_outputs": True,
+                "w_num": 60,
+                "modules": ["celeb_female","hair_sum","color_sum"], # "celeb_female", "celeb_male", "hair_sum", "color_sum" / "hair_cat", "color_cat" / "color_clip" , "hair_clip", "Disney_clip"
+                "texts": ["Emma Stone","wavy", "blonde"]}
+  test_opts = Namespace(**test_options)
+  module_combine(test_opts)
