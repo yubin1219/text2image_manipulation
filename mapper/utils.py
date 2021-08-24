@@ -1,6 +1,6 @@
 import os
 google_drive_paths = {
-  "stylegan2-ffhq-config-f.pt": "https://drive.google.com/uc?id=1EM87UquaoQmk17Q8d5kYIAHqu0dkYqdT",
+  "stylegan2-ffhq-config-f.pt": "https://drive.google.com/uc?id=1v8psSmJvXXJbBm_kqLtQv7GeUOxLyv7U",
 
   "train_data.pt":"https://drive.google.com/uc?id=1gof8kYc_gDLUT4wQlmUdAtPnQIlCO26q",
   "train_female.pt": "https://drive.google.com/uc?id=1_ZTJa9VmhWaU5xyzyAdK4GHxhnzaEORx",
