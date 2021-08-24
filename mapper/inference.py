@@ -16,6 +16,7 @@ sys.path.append("..")
 from mapper.options.test_options import TestOptions
 from mapper.utils import ensure_checkpoint_exists
 from mapper.styleclip_mapper import StyleCLIPMapper
+%matplotlib inline
 
 def inference_code(net, w, w_ori):
   device = "cuda" if torch.cuda.is_available() else 'cpu'
@@ -222,7 +223,7 @@ if __name__ == '__main__':
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
   images = module_combine(test_opts)
-  plt.figure(figsize=(20,20))
+  #plt.figure(figsize=(20,20))
   plt.imshow(images)
   plt.axis('off')
   plt.show()
