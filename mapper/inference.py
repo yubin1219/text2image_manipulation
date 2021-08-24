@@ -12,7 +12,7 @@ from torchvision.transforms import ToPILImage
 sys.path.append(".")
 sys.path.append("..")
 
-#from mapper.options.test_options import TestOptions
+from mapper.options.test_options import TestOptions
 from mapper.utils import ensure_checkpoint_exists
 from mapper.styleclip_mapper import StyleCLIPMapper
 
@@ -218,5 +218,6 @@ if __name__ == '__main__':
                   "w_num": 60,
                   "modules": ["celeb_female","hair_sum","color_sum"], # "celeb_female", "celeb_male", "hair_sum", "color_sum" / "hair_cat", "color_cat" / "color_clip" , "hair_clip", "Disney_clip"
                   "texts": ["Emma Stone","wavy", "blonde"]}
-  test_opts = Namespace(**test_options)
+  #test_opts = Namespace(**test_options)
+  test_opts = TestOptions().parse()
   module_combine(test_opts)
