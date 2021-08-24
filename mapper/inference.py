@@ -13,6 +13,7 @@ sys.path.append(".")
 sys.path.append("..")
 
 #from mapper.options.test_options import TestOptions
+from mapper.utils import ensure_checkpoint_exists
 from mapper.styleclip_mapper import StyleCLIPMapper
 
 def inference_code(net, w, w_ori):
