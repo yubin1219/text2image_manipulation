@@ -97,8 +97,8 @@ def module_combine(test_opts):
   clip_model.eval().to(device)
 
   images = []
-  modules = test_opts.modules
-  texts = test_opts.texts
+  modules = test_opts.modules.split(',')
+  texts = test_opts.texts.split(',')
 
   color_to_idx = {"blonde" : 0, "pink" : 1, "blue" : 2, "black" : 3}
   female_celeb_to_idx = {"Elsa" : 0, "Anna" : 1, "Emma Stone": 2, "Anne Hathaway": 3 , "Scarlett Johansson": 4}
