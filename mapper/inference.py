@@ -45,9 +45,18 @@ def w_hat_clip(w_ori, text_input, operation = 'concat', clip_model = clip_model)
   return w
 
 def module_combine(test_opts):
-  results_path = os.path.join(test_opts.exp_dir,'inference_results')
-  os.makedirs(results_path, exist_ok = True)
-
+  if test_opts.weights_download:
+    ensure_checkpoint_exists("stylegan2-ffhq-config-f.pt")
+    ensure_checkpoint_exists("color_sum.pt")
+    ensure_checkpoint_exists("celeb_female_sum.pt")
+    ensure_checkpoint_exists("celeb_male_sum.pt")
+    ensure_checkpoint_exists("hairstyle_sum.pt")
+    ensure_checkpoint_exists("color_cat.pt")
+    ensure_checkpoint_exists("hairstyle_cat.pt")
+    ensure_checkpoint_exists("color_clip.pt")
+    ensure_checkpoint_exists("Disney_clip.pt")
+    ensure_checkpoint_exists("hairstyle_clip.pt")
+    
   device = "cuda" if torch.cuda.is_available() else 'cpu'
 
   opts_cat = {"stylegan_size" : 1024,
@@ -98,7 +107,8 @@ def module_combine(test_opts):
   Disney = {"Elsa":"Elsa from Frozen", "Anna":"Anna from Frozen", "Rapunzel":"Rapunzel, Disney princess", "Ariel":"Ariel from the little mermaid, Disney princess"}
   hairstyle = {"wavy":"wavy hair", "long":"long hair", "bangs":"Bangs hair", "bobcut":"Bob-cut hairstyle"}
 
-  latent = torch.load(test_opts.latent_path, map_location = device) # opts.latent_path
+  ensure_checkpoint_exists(test_opts.latent_path)
+  latent = torch.load(test_opts.latent_path, map_location = device)
   w_ori = latent[test_opts.w_num].unsqueeze(0)
 
   with torch.no_grad():
@@ -201,10 +211,11 @@ if __name__ == '__main__':
   color_clip = ["blonde", "red", "pink", "blue", "purple", "brown", "black"]
   """
   test_options = {"exp_dir": "results/",
-                "latent_path": "test_female.pt",
-                "intermediate_outputs": True,
-                "w_num": 60,
-                "modules": ["celeb_female","hair_sum","color_sum"], # "celeb_female", "celeb_male", "hair_sum", "color_sum" / "hair_cat", "color_cat" / "color_clip" , "hair_clip", "Disney_clip"
-                "texts": ["Emma Stone","wavy", "blonde"]}
+                  "weights_download": True,
+                  "latent_path": "test_female.pt",
+                  "intermediate_outputs": True,
+                  "w_num": 60,
+                  "modules": ["celeb_female","hair_sum","color_sum"], # "celeb_female", "celeb_male", "hair_sum", "color_sum" / "hair_cat", "color_cat" / "color_clip" , "hair_clip", "Disney_clip"
+                  "texts": ["Emma Stone","wavy", "blonde"]}
   test_opts = Namespace(**test_options)
   module_combine(test_opts)
