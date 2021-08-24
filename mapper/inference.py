@@ -198,9 +198,9 @@ def module_combine(test_opts):
   print("time : %.4f" %(end - start))
 
   result = torch.cat(images)
-  #image = ToPILImage()(make_grid(result.detach().cpu(), normalize=True, scale_each=True, value_range=(-1, 1), padding=0))
-  #h, w = image.size
-  return result
+  image = ToPILImage()(make_grid(result.detach().cpu(), normalize=True, scale_each=True, value_range=(-1, 1), padding=0))
+  h, w = image.size
+  return image.resize((h // 2, w // 2))
 
 if __name__ == '__main__':
   """
@@ -222,8 +222,5 @@ if __name__ == '__main__':
                   "texts": ["Emma Stone","wavy", "blonde"]}
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
-  result = module_combine(test_opts)
-  image = ToPILImage()(make_grid(result.detach().cpu(), normalize=True, scale_each=True, value_range=(-1, 1), padding=0))
-  h, w = image.size
-  image.resize((h // 2, w // 2))
+  images = module_combine(test_opts)
   images.save("results.png")
