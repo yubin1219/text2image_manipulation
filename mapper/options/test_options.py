@@ -7,25 +7,13 @@ class TestOptions:
 
 	def initialize(self):
 		# arguments for inference script
-		self.parser.add_argument('--exp_dir', type=str, help='Path to experiment output directory')
-		self.parser.add_argument('--checkpoint_path', default=None, type=str, help='Path to model checkpoint')
-		self.parser.add_argument('--couple_outputs', action='store_true', help='Whether to also save inputs + outputs side-by-side')
+		self.parser.add_argument('--exp_dir', default='results/', type=str, help='Path to experiment output directory')
+		self.parser.add_argument('--intermediate_outputs', default=True, action='store_true', help='Whether to also visualize input and outputs side-by-side')
+		self.parser.add_argument('--latent_path', default='test_female.pt', type=str, help="The latents for the test")
+		self.parser.add_argument('--w_num', default=60, type=int, help="The latents number")
+		self.parser.add_argument('--modules', default=["celeb_female","hair_sum","color_sum"], type=list(string), help="Which modules will be combined?")
+		self.parser.add_argument('--texts', default=["Elsa","wavy","pink"], type=list(string), help="The latents for the test")
 
-		self.parser.add_argument('--text_embed_mode', default='nn.embedding', type=str, help='Use CLIP text encoder or not')
-    		self.parser.add_argument('--mapper_mode', default='Mapper_sum', type=str, help='Which mapper mode to use')
-    		self.parser.add_argument('--mapper_type', default='LevelsMapper', type=str, help='Which mapper to use')
-		self.parser.add_argument('--no_coarse_mapper', default=False, action="store_true")
-		self.parser.add_argument('--no_medium_mapper', default=False, action="store_true")
-		self.parser.add_argument('--no_fine_mapper', default=False, action="store_true")
-		self.parser.add_argument('--stylegan_size', default=1024, type=int)
-
-
-		self.parser.add_argument('--test_batch_size', default=1, type=int, help='Batch size for testing and inference')
-		self.parser.add_argument('--test_data', default=None, type=str, help="The latents for the validation")
-		self.parser.add_argument('--test_workers', default=1, type=int, help='Number of test/inference dataloader workers')
-		self.parser.add_argument('--work_in_stylespace', default=False, action='store_true')
-
-		self.parser.add_argument('--n_images', type=int, default=None, help='Number of images to output. If None, run on all data')
 
 	def parse(self):
 		opts = self.parser.parse_args()
