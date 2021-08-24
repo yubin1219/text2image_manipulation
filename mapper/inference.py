@@ -55,8 +55,8 @@ def module_combine(test_opts):
     ensure_checkpoint_exists("color_cat.pt")
     ensure_checkpoint_exists("hairstyle_cat.pt")
     ensure_checkpoint_exists("color_clip.pt")
-    ensure_checkpoint_exists("Disney_clip.pt")
-    ensure_checkpoint_exists("hairstyle_clip.pt")
+    ensure_checkpoint_exists("Disney_clip_cat.pt")
+    ensure_checkpoint_exists("hairstyle_clip_cat.pt")
     
   device = "cuda" if torch.cuda.is_available() else 'cpu'
 
@@ -220,4 +220,5 @@ if __name__ == '__main__':
                   "texts": ["Emma Stone","wavy", "blonde"]}
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
-  module_combine(test_opts)
+  images = module_combine(test_opts)
+  images
