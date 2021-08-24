@@ -20,9 +20,7 @@ def main(opts):
 	with open(os.path.join(opts.exp_dir, 'opt.json'), 'w') as f:
 		json.dump(opts_dict, f, indent=4, sort_keys=True)
 	
-	if opts.file_download:
-		ensure_checkpoint_exists(opts.train_data)
-		ensure_checkpoint_exists(opts.test_data)
+	if opts.model_download:
 		ensure_checkpoint_exists(opts.stylegan_weights)
 		ensure_checkpoint_exists(opts.ir_se50_weights)
 	coach = Coach(opts)
@@ -32,7 +30,7 @@ def main(opts):
 if __name__ == '__main__':
 	"""
 	opt = {"exp_dir": "results/",		# 저장할 파일
-	       "file_download": True,		# True : 사용할 파일들 download
+	       "model_download": True,		# True : 사용할 pretrained 파일들 download
 	       "data_mode": "color",		# 변화시킬 style ["hair", "color", "female", "male", "multi"]
 	       "text_embed_mode": None,		# "clip_encoder" : CLIP text encoder로 얻은 text embedding vector 사용 , None : nn.embedding으로 얻은 text embedding vector 사용
 	       "train_data": "train_data.pt",	# "train_female" : female images만으로 구성 , "train_male" : male images만으로 구성
