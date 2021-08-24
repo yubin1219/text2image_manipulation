@@ -2,6 +2,7 @@ import os
 import sys
 import time
 from argparse import Namespace
+from PIL import Image
 import matplotlib.pyplot as plt
 
 import clip
@@ -199,7 +200,7 @@ def module_combine(test_opts):
   result = torch.cat(images)
   image = ToPILImage()(make_grid(result.detach().cpu(), normalize=True, scale_each=True, value_range=(-1, 1), padding=0))
   h, w = image.size
-  return image.resize((h // 2, w // 2))
+  return result, image.resize((h // 2, w // 2))
 
 if __name__ == '__main__':
   """
@@ -221,8 +222,5 @@ if __name__ == '__main__':
                   "texts": ["Emma Stone","wavy", "blonde"]}
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
-  images = module_combine(test_opts)
-  #plt.figure(figsize=(20,20))
-  plt.imshow(images)
-  plt.axis('off')
-  plt.show()
+  result, images = module_combine(test_opts)
+  images.save("results.png")
