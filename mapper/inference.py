@@ -34,7 +34,7 @@ def w_hat(w_ori, embeds, lookup_tensor, operation = 'sum'):
     w = torch.cat([m, w_ori.cpu()],dim = -1)
   return w
 
-def w_hat_clip(w_ori, text_input, operation = 'concat', clip_model):
+def w_hat_clip(w_ori, text_input, operation = 'concat', clip_model = None):
   device = "cuda" if torch.cuda.is_available() else 'cpu'
   with torch.no_grad():
     text_features = clip_model.encode_text(text_input)
