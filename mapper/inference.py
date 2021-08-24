@@ -2,6 +2,8 @@ import os
 import sys
 import time
 from argparse import Namespace
+import matplotlib.pyplot as plt
+%matplotlib inline
 
 import clip
 import torch
@@ -221,4 +223,7 @@ if __name__ == '__main__':
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
   images = module_combine(test_opts)
-  images
+  plt.figure(figsize=(20,20))
+  plt.imshow(images)
+  plt.axis('off')
+  plt.show()
