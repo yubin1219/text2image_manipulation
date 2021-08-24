@@ -34,7 +34,7 @@ def w_hat(w_ori, embeds, lookup_tensor, operation = 'sum'):
     w = torch.cat([m, w_ori.cpu()],dim = -1)
   return w
 
-def w_hat_clip(w_ori, text_input, operation = 'concat', clip_model = clip_model):
+def w_hat_clip(w_ori, text_input, operation = 'concat', clip_model):
   device = "cuda" if torch.cuda.is_available() else 'cpu'
   with torch.no_grad():
     text_features = clip_model.encode_text(text_input)
@@ -171,19 +171,19 @@ def module_combine(test_opts):
     elif modules[i] == "color_clip":
       net_cat.load_state_dict(torch.load("color_clip.pt", map_location = device)["state_dict"])
       text_input = torch.cat([clip.tokenize(color[texts[i]])]).to(device)
-      w = w_hat_clip(w_ori, text_input, 'concat')
+      w = w_hat_clip(w_ori, text_input, 'concat', clip_model)
       x_hat, w_ori = inference_code(net_cat, w, w_ori)
 
     elif modules[i] == "Disney_clip":
       net_cat.load_state_dict(torch.load("Disney_clip_cat.pt", map_location = device)["state_dict"])
       text_input = torch.cat([clip.tokenize(Disney[texts[i]])]).to(device)
-      w = w_hat_clip(w_ori, text_input, 'concat')
+      w = w_hat_clip(w_ori, text_input, 'concat', clip_model)
       x_hat, w_ori = inference_code(net_cat, w, w_ori)
 
     elif modules[i] == "hair_clip":
       net_hair_cat.load_state_dict(torch.load("hairstyle_clip_cat.pt", map_location = device)["state_dict"])
       text_input = torch.cat([clip.tokenize(hairstyle[texts[i]])]).to(device)
-      w = w_hat_clip(w_ori, text_input, 'concat')
+      w = w_hat_clip(w_ori, text_input, 'concat', clip_model)
       x_hat, w_ori = inference_code(net_hair_cat, w, w_ori)
 
     if test_opts.intermediate_outputs:
