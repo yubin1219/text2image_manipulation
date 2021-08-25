@@ -4,7 +4,6 @@ import time
 from argparse import Namespace
 from PIL import Image
 import matplotlib.pyplot as plt
-%matplotlib inline
 
 import clip
 import torch
@@ -77,6 +76,7 @@ def single_inference(test_opts):
   return image.resize((h // 2, w // 2))
 
 if __name__=="__main__":
+  %matplotlib inline
   test_options = {"weights_download": True,
                 "latent_path": "test_female.pt",
                 "w_num": 60,
