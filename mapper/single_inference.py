@@ -84,6 +84,7 @@ if __name__=="__main__":
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
   images = single_inference(test_opts)
+  images.show()
   images.save("results_{}.png".format(test_opts.texts))
   plt.figure(figsize=(16,16))
   plt.imshow(images)
