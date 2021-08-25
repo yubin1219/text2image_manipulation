@@ -101,7 +101,7 @@ def module_combine(test_opts):
   images = []
   #modules = test_opts.modules.split(',')
   #texts = test_opts.texts.split(',')
-  modules = test_opts.modulues
+  modules = test_opts.modules
   texts = test_opts.texts
 
   color_to_idx = {"blonde" : 0, "pink" : 1, "blue" : 2, "black" : 3}
