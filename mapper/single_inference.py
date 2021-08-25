@@ -4,6 +4,7 @@ import time
 from argparse import Namespace
 from PIL import Image
 import matplotlib.pyplot as plt
+%matplotlib inline
 
 import clip
 import torch
