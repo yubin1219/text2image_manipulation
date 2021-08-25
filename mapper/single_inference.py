@@ -2,7 +2,6 @@ import os
 import sys
 import time
 from argparse import Namespace
-from IPython.display import Image, display
 import matplotlib.pyplot as plt
 
 import clip
@@ -85,8 +84,6 @@ if __name__=="__main__":
   test_opts = TestOptions().parse()
   images = single_inference(test_opts)  
   images.save("results_{}.png".format(test_opts.texts))
-  img = Image(filename="results_{}.png".format(test_opts.texts))
-  display(img)
   plt.figure(figsize=(16,16))
   plt.imshow(images)
   plt.axis('off')
