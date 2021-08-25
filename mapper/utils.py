@@ -21,7 +21,7 @@ google_drive_paths = {
   "hairstyle_clip_cat.pt": "https://drive.google.com/uc?id=1chUIchCEtyU4Mrg0BBjvKAcNKPtABELG",
   "Disney_clip_cat.pt": "https://drive.google.com/uc?id=1OvntzHYCdhonuNsEZAw_qf0wbQ4xp5y2",
     
-  "multi_sum.pt": "https://drive.google.com/uc?id=1fiI-NpgnDEfKnMZzd5jpNNepKSd33IPo"
+  "multi_sum.pt": "https://drive.google.com/uc?id=1BY0_uivScHE1_2wcDCEDS0WsLE6LOFiZ"
 }
 
 def ensure_checkpoint_exists(model_weights_filename):
