@@ -47,6 +47,8 @@ def w_hat_clip(w_ori, text_input, operation = 'concat', clip_model = None):
     w = torch.cat([text_latents, w_ori], dim= -1)
   return w
 
+
+
 def module_combine(test_opts):
   if test_opts.weights_download:
     ensure_checkpoint_exists("stylegan2-ffhq-config-f.pt")
@@ -97,8 +99,10 @@ def module_combine(test_opts):
   clip_model.eval().to(device)
 
   images = []
-  modules = test_opts.modules.split(',')
-  texts = test_opts.texts.split(',')
+  #modules = test_opts.modules.split(',')
+  #texts = test_opts.texts.split(',')
+  modules = test_opts.modulues
+  texts = test_opts.texts
 
   color_to_idx = {"blonde" : 0, "pink" : 1, "blue" : 2, "black" : 3}
   female_celeb_to_idx = {"Elsa" : 0, "Anna" : 1, "Emma Stone": 2, "Anne Hathaway": 3 , "Scarlett Johansson": 4}
