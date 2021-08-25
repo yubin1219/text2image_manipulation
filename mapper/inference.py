@@ -105,8 +105,8 @@ def module_combine(test_opts):
   texts = test_opts.texts
 
   color_to_idx = {"blonde" : 0, "pink" : 1, "blue" : 2, "black" : 3}
-  female_celeb_to_idx = {"Elsa" : 0, "Anna" : 1, "Emma Stone": 2, "Anne Hathaway": 3 , "Scarlett Johansson": 4}
-  male_celeb_to_idx = {"Iron man" : 0, "Dicaprio" : 1, "Zuckerberg": 2, "Tom Holland": 3}
+  female_celeb_to_idx = {"Elsa" : 0, "Anna" : 1, "Emma_Stone": 2, "Anne_Hathaway": 3 , "Scarlett_Johansson": 4}
+  male_celeb_to_idx = {"Ironman" : 0, "Dicaprio" : 1, "Zuckerberg": 2, "Tom_Holland": 3}
   hair_to_idx = {"curly" : 0, "wavy" : 1, "long": 2, "bobcut": 3 , "bangs": 4}
 
   # If use CLIP text encoder
@@ -208,8 +208,8 @@ def module_combine(test_opts):
 
 if __name__ == '__main__':
   """
-  celeb_female = ["Elsa", "Anna", "Emma Stone", "Anne Hathaway", "Scarlett Johansson"]
-  celeb_male = ["Iron man", "Dicaprio", "Zuckerberg", "Tom Holland"]
+  celeb_female = ["Elsa", "Anna", "Emma_Stone", "Anne_Hathaway", "Scarlett_Johansson"]
+  celeb_male = ["Ironman", "Dicaprio", "Zuckerberg", "Tom_Holland"]
   hair_sum or hair_cat = ["curly", "wavy", "long", "bobcut" , "bangs"]
   color_sum or hair_cat = ["blonde", "pink", "blue", "black"]
   
@@ -223,7 +223,7 @@ if __name__ == '__main__':
                   "intermediate_outputs": True,
                   "w_num": 60,
                   "modules": ["celeb_female","hair_sum","color_sum"], # "celeb_female", "celeb_male", "hair_sum", "color_sum" / "hair_cat", "color_cat" / "color_clip" , "hair_clip", "Disney_clip"
-                  "texts": ["Emma Stone","wavy", "blonde"]}
+                  "texts": ["Emma_Stone","wavy", "blonde"]}
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
   images = module_combine(test_opts)
