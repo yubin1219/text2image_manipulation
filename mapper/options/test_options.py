@@ -12,8 +12,8 @@ class TestOptions:
 		self.parser.add_argument('--intermediate_outputs', default=True, action='store_true', help='Whether to also visualize input and outputs side-by-side')
 		self.parser.add_argument('--latent_path', default='test_female.pt', type=str, help="The latents for the test")
 		self.parser.add_argument('--w_num', default=60, type=int, help="The latents number")
-		self.parser.add_argument('--modules', default="celeb_female,hair_sum,color_sum", type=str, help="Which modules will be combined?")
-		self.parser.add_argument('--texts', default="Elsa,wavy,pink", type=str, help="The latents for the test")
+		self.parser.add_argument('--modules', default=["celeb_female","hair_sum","color_sum"], action = 'append', help="Which modules will be combined?")
+		self.parser.add_argument('--texts', default=["Elsa","wavy","pink"], action='append', help="The latents for the test")
 
 
 	def parse(self):
