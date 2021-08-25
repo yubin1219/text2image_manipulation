@@ -76,7 +76,6 @@ def single_inference(test_opts):
   return image.resize((h // 2, w // 2))
 
 if __name__=="__main__":
-  %matplotlib inline
   test_options = {"weights_download": True,
                 "latent_path": "test_female.pt",
                 "w_num": 60,
