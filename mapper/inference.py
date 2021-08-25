@@ -227,4 +227,4 @@ if __name__ == '__main__':
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
   images = module_combine(test_opts)
-  images.save("results_{test_opts.texts}.png")
+  images.save("results_{}.png".format(test_opts.texts))
