@@ -14,11 +14,11 @@
 <br/>
 
 ### Example of Inference Process
-- Single module    
+#### Single module     
  
-    <img src="https://user-images.githubusercontent.com/74402562/130312144-8faee752-ab9c-40d1-a563-f570fb94623b.png" width="80%" height="80%"></img>
+<center><img src="https://user-images.githubusercontent.com/74402562/130312144-8faee752-ab9c-40d1-a563-f570fb94623b.png" width="80%" height="80%"></center>
 <br/>
 
-- Multi modules combination    
+#### Multi modules combination    
  
-    <img src="https://user-images.githubusercontent.com/74402562/130312138-a3bbd4ef-8f39-4a53-9270-44d7680f06ed.png" width="100%" height="100%"></img>
+<center><img src="https://user-images.githubusercontent.com/74402562/130312138-a3bbd4ef-8f39-4a53-9270-44d7680f06ed.png" width="100%" height="100%"></center>
