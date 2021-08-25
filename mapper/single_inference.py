@@ -2,7 +2,7 @@ import os
 import sys
 import time
 from argparse import Namespace
-from IPython.display import Image
+from IPython.display import Image, display
 import matplotlib.pyplot as plt
 
 import clip
