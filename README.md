@@ -1,4 +1,4 @@
-# 2021 Summer Intern
+# Text to Image Manipulation
 
 # Project Description     
 text를 사용해 image manipulation을 수행하는 project입니다.    
