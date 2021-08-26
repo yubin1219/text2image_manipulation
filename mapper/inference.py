@@ -117,6 +117,8 @@ def module_combine(test_opts):
 
   
   if test_opts.new_latents:
+    ensure_checkpoint_exists("e4e_ffhq_encode.pt")
+    ensure_checkpoint_exists("shape_predictor_68_face_landmarks.dat")
     w_ori = encoder(test_opts.new_image_path)
     
   else:
