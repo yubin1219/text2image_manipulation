@@ -8,10 +8,10 @@ import torch
 sys.path.append(".")
 sys.path.append("..")
 
-from utils.common import tensor2im
-from mapper.psp import pSp
+from mapper.latents_encoder.common import tensor2im
+from mapper.latents_encoder.psp import pSp
 import dlib
-from mapper.aligment import align_face
+from mapper.latents_encoder.aligment import align_face
 
 def run_alignment(image_path):
   predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
