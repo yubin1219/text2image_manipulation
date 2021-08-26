@@ -21,8 +21,8 @@ def run_alignment(image_path):
   return aligned_image 
 
 def display_alongside_source_image(result_image, source_image):
-  res = np.concatenate([np.array(source_image.resize(resize_dims)),
-                        np.array(result_image.resize(resize_dims))], axis=1)
+  res = np.concatenate([np.array(source_image.resize((256,256))),
+                        np.array(result_image.resize((256,256)))], axis=1)
   return Image.fromarray(res)
 
 def run_on_batch(inputs, net):
