@@ -91,8 +91,9 @@ class pSp(nn.Module):
             return images
 
     def __load_latent_avg(self, ckpt, repeat=None):
+        device = "cuda" if torch.cuda.is_available() else "cpu"
         if 'latent_avg' in ckpt:
-            self.latent_avg = ckpt['latent_avg'].to(self.opts.device)
+            self.latent_avg = ckpt['latent_avg'].to(device)
             if repeat is not None:
                 self.latent_avg = self.latent_avg.repeat(repeat, 1)
         else:
