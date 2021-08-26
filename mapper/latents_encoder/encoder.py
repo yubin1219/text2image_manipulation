@@ -37,6 +37,7 @@ def encoder(new_img_path):
   model_path = "e4e_ffhq_encode.pt"
   ckpt = torch.load(model_path, map_location=device)
   opts = ckpt['opts']
+  opts[device] = device
   opts['checkpoint_path'] = model_path
   opts = Namespace(**opts)
   net = pSp(opts)
