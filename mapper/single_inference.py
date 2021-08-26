@@ -17,6 +17,7 @@ from mapper.options.test_options import TestOptions
 from mapper.utils import ensure_checkpoint_exists
 from mapper.styleclip_mapper import StyleCLIPMapper
 from mapper.inference import inference_code
+from mapper.latents_encoder.encoder import encoder
 
 def single_inference(test_opts):
   if test_opts.weights_download:
@@ -44,9 +45,15 @@ def single_inference(test_opts):
   images = []
   texts = test_opts.texts
 
-  ensure_checkpoint_exists(test_opts.latent_path)
-  latent = torch.load(test_opts.latent_path, map_location = device)
-  w_ori = latent[test_opts.w_num].unsqueeze(0)
+  if test_opts.new_latent:
+    ensure_checkpoint_exists("e4e_ffhq_encode.pt")
+    ensure_checkpoint_exists("shape_predictor_68_face_landmarks.dat")
+    w_ori = encoder(test_opts.new_image_path)
+    
+  else:
+    ensure_checkpoint_exists(test_opts.latent_path)
+    latent = torch.load(test_opts.latent_path, map_location = device)
+    w_ori = latent[test_opts.w_num].unsqueeze(0)
 
   with torch.no_grad():
     w_ori = w_ori.to(device)
@@ -76,10 +83,12 @@ def single_inference(test_opts):
 
 if __name__=="__main__":
   test_options = {"weights_download": True,
-                "latent_path": "test_female.pt",
-                "w_num": 60,
-                "texts": ["wavy","black"]   # ["Elsa" , "Emma_Watson", "wavy", "bangs", "pink", "black"]
-                }
+                  "new_latent": False,
+                  "new_image_path": None,
+                  "latent_path": "test_female.pt",
+                  "w_num": 60,
+                  "texts": ["wavy","black"]   # ["Elsa" , "Emma_Watson", "wavy", "bangs", "pink", "black"]
+                 }
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
   images = single_inference(test_opts)  
