@@ -2,8 +2,8 @@ import os
 google_drive_paths = {
   "stylegan2-ffhq-config-f.pt": "https://drive.google.com/uc?id=1v8psSmJvXXJbBm_kqLtQv7GeUOxLyv7U",
   "model_ir_se50.pth": "https://drive.google.com/uc?id=1KW7bjndL3QG3sxBbZxreGHigcCCpsDgn",
-  "e4e_ffhq_encode.pt": "https://drive.google.com/uc?id=1cUv_reLE6k3604or78EranS7XzuVMWeO"
-  "shape_predictor_68_face_landmarks.dat": "https://drive.google.com/uc?id=1NBgh-ypy49K6okKsLOUwtqyoEnAXBxoy"
+  "e4e_ffhq_encode.pt": "https://drive.google.com/uc?id=1cUv_reLE6k3604or78EranS7XzuVMWeO",
+  "shape_predictor_68_face_landmarks.dat": "https://drive.google.com/uc?id=1NBgh-ypy49K6okKsLOUwtqyoEnAXBxoy",
   
   "train_data.pt":"https://drive.google.com/uc?id=1gof8kYc_gDLUT4wQlmUdAtPnQIlCO26q",
   "train_female.pt": "https://drive.google.com/uc?id=1_ZTJa9VmhWaU5xyzyAdK4GHxhnzaEORx",
