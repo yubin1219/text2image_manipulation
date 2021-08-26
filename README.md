@@ -219,7 +219,7 @@ Dataset | Description
 **<p align="center">Input Image / "He is a young boy" / "He is smiling"</p>**
 
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130747473-c0e6d2bb-690e-4a64-84a9-a898ac10c874.png">
-<img src="https://user-images.githubusercontent.com/74402562/130895497-490ff11d-c67f-4ccc-8d80-8a3aa4045162.png"> <img src="https://user-images.githubusercontent.com/74402562/130758900-cf0c1b04-babd-464e-a79c-3f12ea469be6.gif"></p>
+<img src="https://user-images.githubusercontent.com/74402562/130895497-490ff11d-c67f-4ccc-8d80-8a3aa4045162.png"> <img src="https://user-images.githubusercontent.com/74402562/130896820-b2811e8b-0d22-4d04-9324-2b1c92e3c7bc.png"></p>
 
 ### Latent Mapper    
 - **Results of Changed Hair Style**
