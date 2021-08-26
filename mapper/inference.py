@@ -17,6 +17,7 @@ sys.path.append("..")
 from mapper.options.test_options import TestOptions
 from mapper.utils import ensure_checkpoint_exists
 from mapper.styleclip_mapper import StyleCLIPMapper
+from maper.latents_encoder.encoder import encoder
 
 def inference_code(net, w, w_ori):
   device = "cuda" if torch.cuda.is_available() else 'cpu'
@@ -116,13 +117,12 @@ def module_combine(test_opts):
 
   
   if test_opts.new_latents:
-    test_opts.new_image_path
+    w_ori = encoder(test_opts.new_image_path)
     
   else:
     ensure_checkpoint_exists(test_opts.latent_path)
     latent = torch.load(test_opts.latent_path, map_location = device)
-  
-  w_ori = latent[test_opts.w_num].unsqueeze(0)
+    w_ori = latent[test_opts.w_num].unsqueeze(0)
 
   with torch.no_grad():
     w_ori = w_ori.to(device)
