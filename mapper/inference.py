@@ -227,7 +227,7 @@ if __name__ == '__main__':
   """
   test_options = {"exp_dir": "results/",
                   "new_latents": False,
-                  "new_image_path":None,
+                  "new_image_path": None,
                   "weights_download": True,
                   "latent_path": "test_female.pt",
                   "intermediate_outputs": True,
