@@ -148,6 +148,8 @@ python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Ma
 - ```--texts```는 style을 하나씩 입력하면 list에 담아집니다.
 - ```--modules```와 ```--texts```는 짝이 맞아야 합니다.
 - inference 시 생성된 images는 ```result_[입력한 texts].png``` 형태로 저장됩니다.
+- ```--new_latent```를 써주면 원하는 이미지를 latent vector로 바꿔 사용할 수 있습니다. ```default = False```
+   * ```--new_image_path```에 이미지 파일을 입력해주세요. 예) "ubin.jpg"
 
 ### 1. Multi Model Combination    
 
