@@ -1,8 +1,6 @@
 # Text to Image Manipulation
-
-# Project Description     
-text를 사용해 image manipulation을 수행하는 project입니다.    
-Pretrained model인 StyleGAN2와 CLIP을 활용한 다음과 같은 방식들을 통해 text to image manipulation을 수행하였습니다.
+## Multi modal learning project
+- using OpenAI CLIP [[paper](https://arxiv.org/abs/2103.00020)] [[code](https://github.com/openai/CLIP)]
 
 ## Latent Optimization
 
