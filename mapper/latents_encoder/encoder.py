@@ -4,13 +4,13 @@ import numpy as np
 from PIL import Image
 import torchvision.transforms as transforms
 import torch
+import dlib
 
 sys.path.append(".")
 sys.path.append("..")
 
 from mapper.latents_encoder.common import tensor2im
 from mapper.latents_encoder.psp import pSp
-import dlib
 from mapper.latents_encoder.aligment import align_face
 
 def run_alignment(image_path):
@@ -58,5 +58,8 @@ def encoder(options):
     images, latents = run_on_batch(transformed_image.unsqueeze(0), net)
     result_image, latent = images[0], latents[0]
   torch.save(latents, 'latents.pt')
+  
   # Display inversion:
   display_alongside_source_image(tensor2im(result_image), input_image)
+  
+  return latents
