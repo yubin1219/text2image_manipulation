@@ -6,18 +6,18 @@
 text를 사용해 image manipulation을 수행하는 project입니다.    
 Pretrained model인 StyleGAN2와 CLIP을 활용한 다음과 같은 방식들을 통해 text to image manipulation을 수행하였습니다.
 
-## Latent Optimization [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/13V5c4sTGwYHEsLuxEkVTBApKPCHR5-g9?usp=sharing)
+## Latent Optimization
 
 - G(w)를 CLIP의 image encoder에 넣어 임베딩 값을 구하고 CLIP의 text encoder에서 임베딩된 값과 코사인 유사도를 계산하여 loss로 추가 사용
 - G(w) 임베딩 값이 text 임베딩 값과 유사해지는 방향으로 gradient decent를 이용해 latent vector w를 update
 - 이미지 조작은 잘 하지만 매번 몇 분의 optimization과정이 필요
 
-## Global Directions [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1QtDtvAZvS7lDXf2_gPbDi6L4nLWcK5WY?usp=sharing)
+## Global Directions
 - text prompt를 style space S의 single, global direction과 mapping하는 방법
 - Text prompt가 주어지면 CLIP을 통해 original text와 target text의 임베딩 차이인 delta t를 구한 후 기존 style과 변경된 style의 차이인 delta s에 mapping
 - 수용할 수 있는 text의 범위가 넓음
 
-## Latent Mapper [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/15cdrsZPId89EiImjVU0LzLH7a5h3AeWt?usp=sharing)   
+## Latent Mapper 
 **이번 프로젝트의 "Main Method"**
 
 - Mapper는 latent vector w를 text의 의미에 맞게 변화시키는 방향으로 Training
