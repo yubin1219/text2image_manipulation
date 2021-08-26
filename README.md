@@ -70,7 +70,7 @@ pip install git+https://github.com/openai/CLIP.git
 ```
 
 # Usage
-## Train [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/15cdrsZPId89EiImjVU0LzLH7a5h3AeWt?usp=sharing)    
+## Train    
 ### Setup
 #### Download pretrained model
 
@@ -139,7 +139,7 @@ cd mapper
 python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Mapper_multi"
 ```
 
-## Inference [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/15cdrsZPId89EiImjVU0LzLH7a5h3AeWt?usp=sharing)    
+## Inference     
 #### Guidance
 - ```mapper/utils.py```에 데이터셋과 pretrained weights의 google drive 주소와 download 함수가 있습니다.
 - ```--weights_download```를 True로 하면 inference과정에서 필요한 dataset과 weight들이 자동으로 다운로드 됩니다.
