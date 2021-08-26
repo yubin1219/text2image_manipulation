@@ -1,6 +1,4 @@
-# Text to Image Manipulation
-### project using CLIP (Multimodal Learning)   
-- CLIP (Contrastive Language-Image Pre-Training) [[paper](https://arxiv.org/pdf/2103.00020.pdf)][[code](https://github.com/openai/CLIP)]
+# 2021 Summer Intern
 
 # Project Description     
 text를 사용해 image manipulation을 수행하는 project입니다.    
