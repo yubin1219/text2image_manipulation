@@ -26,9 +26,8 @@ def display_alongside_source_image(result_image, source_image):
   return Image.fromarray(res)
 
 def run_on_batch(inputs, net):
-  images, latents = net(inputs.to("cuda").float(), randomize_noise=False, return_latents=True)
-  if experiment_type == 'cars_encode':
-    images = images[:, :, 32:224, :]
+  device = "cuda" if torch.cuda.is_available() else "cpu"
+  images, latents = net(inputs.to(device).float(), randomize_noise=False, return_latents=True)
   return images, latents
 
 
