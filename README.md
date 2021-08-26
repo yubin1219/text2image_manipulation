@@ -225,11 +225,16 @@ Dataset | Description
 
 ### Latent Mapper    
 - **Results of Changed Hair Style**
+
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130761194-b55a756e-a519-4212-ae23-83e717743dbb.png"></p>
 
 - **Results of Changed Hair Color**
 
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130775347-c4bf89ef-06b1-4315-9c3d-664fc81102df.png" width="80%" height="80%"></p>
+
+- **Results of Male celeb style**
+
+<p align="center"><img src="https://user-images.githubusercontent.com/74402562/130893205-8c761c0a-f1f9-4548-8ed4-9e3975bc3293.png"></p>
 
 - **Results of Multi-Styling**
 
