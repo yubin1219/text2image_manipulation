@@ -116,7 +116,7 @@ def module_combine(test_opts):
   hairstyle = {"wavy":"wavy hair", "long":"long hair", "bangs":"Bangs hair", "bobcut":"Bob-cut hairstyle"}
 
   
-  if test_opts.new_latents:
+  if test_opts.new_latent:
     ensure_checkpoint_exists("e4e_ffhq_encode.pt")
     ensure_checkpoint_exists("shape_predictor_68_face_landmarks.dat")
     w_ori = encoder(test_opts.new_image_path)
@@ -226,7 +226,7 @@ if __name__ == '__main__':
   color_clip = ["blonde", "red", "pink", "blue", "purple", "brown", "black"]
   """
   test_options = {"exp_dir": "results/",
-                  "new_latents": False,
+                  "new_latent": False,
                   "new_image_path": None,
                   "weights_download": True,
                   "latent_path": "test_female.pt",
