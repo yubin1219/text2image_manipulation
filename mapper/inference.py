@@ -17,7 +17,7 @@ sys.path.append("..")
 from mapper.options.test_options import TestOptions
 from mapper.utils import ensure_checkpoint_exists
 from mapper.styleclip_mapper import StyleCLIPMapper
-from maper.latents_encoder.encoder import encoder
+from mapper.latents_encoder.encoder import encoder
 
 def inference_code(net, w, w_ori):
   device = "cuda" if torch.cuda.is_available() else 'cpu'
