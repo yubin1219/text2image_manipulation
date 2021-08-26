@@ -1,5 +1,6 @@
 from collections import namedtuple
 import torch
+import torch.nn.functional as F
 from torch.nn import Conv2d, BatchNorm2d, PReLU, ReLU, Sigmoid, MaxPool2d, AdaptiveAvgPool2d, Sequential, Module
 
 """
