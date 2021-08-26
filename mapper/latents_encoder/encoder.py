@@ -33,6 +33,8 @@ def run_on_batch(inputs, net):
 
 
 def encoder(new_img_path):
+  device = "cuda" if torch.cuda.is_available() else "cpu"
+  
   model_path = "e4e_ffhq_encode.pt"
   ensure_checkpoint_exists(model_path)
   ckpt = torch.load(model_path, map_location=device)
