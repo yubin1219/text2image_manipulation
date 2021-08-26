@@ -1,3 +1,7 @@
+from mapper.psp import pSp
+import dlib
+from aligment import align_face
+
 def encoder(options):
   model_path = "e4e_ffhq_encode.pt"
   ensure_checkpoint_exists(model_path)
