@@ -150,6 +150,7 @@ python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Ma
 - inference 시 생성된 images는 ```result_[입력한 texts].png``` 형태로 저장됩니다.
 - ```--new_latent```를 써주면 원하는 이미지를 latent vector로 바꿔 사용할 수 있습니다. ```default = False```
    * ```--new_image_path```에 이미지 파일을 입력해주세요. 예) "ubin.jpg"
+   * encoder과정 시 필요한 파일들 ```"e4e_ffhq_encode.pt"```와 ```"shape_predictor_68_face_landmarks.dat"```는 코드 상에서 자동으로 다운받을 수 있도록 해놓았으나 불가할 시에는 google drive [styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)폴더에서 download 가능합니다. 
 
 ### 1. Multi Model Combination    
 
@@ -221,7 +222,7 @@ Dataset | Description
 **<p align="center">Input Image / "He is a young boy" / "He is smiling"</p>**
 
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130747473-c0e6d2bb-690e-4a64-84a9-a898ac10c874.png">
-<img src="https://user-images.githubusercontent.com/74402562/130895497-490ff11d-c67f-4ccc-8d80-8a3aa4045162.png"> <img src="https://user-images.githubusercontent.com/74402562/130896820-b2811e8b-0d22-4d04-9324-2b1c92e3c7bc.png"></p>
+<img src="https://user-images.githubusercontent.com/74402562/130758910-09c68766-8f4a-4cec-ab97-0a9219bc0ffe.gif"> <img src="https://user-images.githubusercontent.com/74402562/130758900-cf0c1b04-babd-464e-a79c-3f12ea469be6.gif"></p>
 
 ### Latent Mapper    
 - **Results of Changed Hair Style**
