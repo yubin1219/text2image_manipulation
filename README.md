@@ -208,6 +208,14 @@ Dataset | Description
 [test_female](https://drive.google.com/file/d/1LYOdh-45aNbGwaj38qQObbBX73wMJXu1/view?usp=sharing)|총 1899개의 latent vector
 [test_male](https://drive.google.com/file/d/11MGereOsRMUo_HQXV8NnFR-L_ECcTXvk/view?usp=sharing)|총 925개의 latent vector
 
+# Using t-SNE for vector visualization
+### **Each modules - celeb / hair style / color**
+
+<p align="center"><img src="https://user-images.githubusercontent.com/74402562/130887843-74b37115-9b4a-4a7a-84c2-2ded48594318.png" width="30%" height="30%"> <img src="https://user-images.githubusercontent.com/74402562/130888094-e8202de7-8ed0-4aa2-9609-8856c4c19ee6.png" width="30%" height="30%"> <img src="https://user-images.githubusercontent.com/74402562/130886760-7a92af0b-dfd7-4954-a7e4-e91838400ce0.png" width="30%" height="30%"></p>
+
+### **Single model learned multi-style combination**    
+<p align="center"><img src="https://user-images.githubusercontent.com/74402562/130884002-e9832c50-5d20-4e5f-93d7-7545e5344529.png" width="100%" height="100%"></p>
+
 # Examples of Result
 ### Latent Optimization
 **<p align="center">Input Image / "He is a young boy" / "He is smiling"</p>**
@@ -219,11 +227,11 @@ Dataset | Description
 - **Results of Changed Hair Style**
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130761194-b55a756e-a519-4212-ae23-83e717743dbb.png"></p>
 
-- **Reults of Changed Hair Color**
+- **Results of Changed Hair Color**
 
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130775347-c4bf89ef-06b1-4315-9c3d-664fc81102df.png" width="80%" height="80%"></p>
 
-- **Reults of Multi-Styling**
+- **Results of Multi-Styling**
 
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130781810-8bab03e5-e887-4a0d-b7fc-9bdb894034c7.png"></p>
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130781822-27aef3cd-72df-4f86-9311-bc932a93dc63.png"></p>
