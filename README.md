@@ -37,7 +37,7 @@ Pretrained model인 StyleGAN2와 CLIP을 활용한 다음과 같은 방식들을
 <p align="center">
     <img src="https://user-images.githubusercontent.com/74402562/130408521-54a5b4ad-a7e5-4f09-837c-febddb345066.png" width="90%" height="90%">
 </p>
-<br/><br/>
+<br/>
 
 - nn.embedding을 통해 얻은 text embedding vector를 latent vector와 summation 또는 concatenate하여 Mapper의 input으로 사용
 <br/>
@@ -47,7 +47,7 @@ Pretrained model인 StyleGAN2와 CLIP을 활용한 다음과 같은 방식들을
 <p align="center">
     <img src="https://user-images.githubusercontent.com/74402562/130408531-b6e9218f-5b57-4396-b99f-19b673b823f6.png" width="90%" height="90%">
 </p>
-<br/><br/>
+<br/>
 
 - CLIP의 text encoder를 통해 얻은 text embedding vector를 latent vector와 concatenate하여 Mapper의 input으로 사용
 <br/>
@@ -57,7 +57,7 @@ Pretrained model인 StyleGAN2와 CLIP을 활용한 다음과 같은 방식들을
 <p align="center">
     <img src="https://user-images.githubusercontent.com/74402562/130411102-f1b3fb01-4033-48ce-8bb0-bdec59385918.png" width="90%" height="90%">
 </p>
-<br/><br/>
+<br/>
 
 - 이전 method들은 하나의 모델에서 multi style을 학습하기는 하지만 그 style들이 결합된 상태는 학습하지 못함
 - 이 method는 하나의 모델에서 각각의 style과 그 style들이 결합된 상태까지 Training
