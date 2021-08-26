@@ -17,6 +17,7 @@ sys.path.append("..")
 from mapper.options.test_options import TestOptions
 from mapper.utils import ensure_checkpoint_exists
 from mapper.styleclip_mapper import StyleCLIPMapper
+from mapper.psp import pSp
 
 def inference_code(net, w, w_ori):
   device = "cuda" if torch.cuda.is_available() else 'cpu'
@@ -63,7 +64,7 @@ def module_combine(test_opts):
     ensure_checkpoint_exists("hairstyle_clip_cat.pt")
     
   device = "cuda" if torch.cuda.is_available() else 'cpu'
-
+  
   opts_cat = {"stylegan_size" : 1024,
               "mapper_type": "LevelsMapper",
               "mapper_mode": "Mapper_cat",
@@ -114,8 +115,14 @@ def module_combine(test_opts):
   Disney = {"Elsa":"Elsa from Frozen", "Anna":"Anna from Frozen", "Rapunzel":"Rapunzel, Disney princess", "Ariel":"Ariel from the little mermaid, Disney princess"}
   hairstyle = {"wavy":"wavy hair", "long":"long hair", "bangs":"Bangs hair", "bobcut":"Bob-cut hairstyle"}
 
-  ensure_checkpoint_exists(test_opts.latent_path)
-  latent = torch.load(test_opts.latent_path, map_location = device)
+  
+  if test_opts.new_latents:
+    test_opts.new_image_path
+    
+  else:
+    ensure_checkpoint_exists(test_opts.latent_path)
+    latent = torch.load(test_opts.latent_path, map_location = device)
+  
   w_ori = latent[test_opts.w_num].unsqueeze(0)
 
   with torch.no_grad():
