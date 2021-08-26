@@ -134,6 +134,7 @@ Example for training a mapper for multi style:
 cd mapper
 python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Mapper_multi"
 ```
+<br/>
 
 ## Inference     
 #### Guidance
@@ -192,6 +193,7 @@ Example for testing a mapper for single model learned multi-style:
 cd mapper
 python single_inference.py --latent_path "test_female.pt" --texts Emma_Watson --texts wavy --texts black
 ```
+<br/>
 
 # Dataset
 - CelebA-HQ 이미지를 encoder4editing을 통해 latent vector로 변환시켜 데이터셋으로 사용했습니다.   
@@ -206,6 +208,7 @@ Dataset | Description
 [train_male](https://drive.google.com/file/d/1u9r3qcH7qqGHGoolkaR-xEyNCDIz0bCv/view?usp=sharing)|총 8844개의 latent vector
 [test_female](https://drive.google.com/file/d/1LYOdh-45aNbGwaj38qQObbBX73wMJXu1/view?usp=sharing)|총 1899개의 latent vector
 [test_male](https://drive.google.com/file/d/11MGereOsRMUo_HQXV8NnFR-L_ECcTXvk/view?usp=sharing)|총 925개의 latent vector
+<br/>
 
 # Using t-SNE for vector visualization
 ### **Each modules - celeb / hair style / color**
@@ -214,6 +217,7 @@ Dataset | Description
 
 ### **Single model learned multi-style combination**    
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130884002-e9832c50-5d20-4e5f-93d7-7545e5344529.png" width="100%" height="100%"></p>
+<br/>
 
 # Examples of Result
 ### Latent Optimization
