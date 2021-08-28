@@ -188,7 +188,7 @@ texts|
 Example for testing a mapper for single model learned multi-style:
 ```
 cd mapper
-python single_inference.py --latent_path "test_female.pt" --texts Emma_Watson --texts wavy --texts black
+python inference_single.py --latent_path "test_female.pt" --texts Emma_Watson --texts wavy --texts black
 ```
 <br/>
 
