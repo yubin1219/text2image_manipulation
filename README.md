@@ -6,7 +6,7 @@
 
 - G(w)를 CLIP의 image encoder에 넣어 임베딩 값을 구하고 CLIP의 text encoder에서 임베딩된 값과 코사인 유사도를 계산하여 loss로 추가 사용
 - G(w) 임베딩 값이 text 임베딩 값과 유사해지는 방향으로 gradient decent를 이용해 latent vector w를 update
-- 이미지 조작은 잘 하지만 매번 몇 분의 optimization과정이 필요
+- text 의미에 맞게 이미지 manipulation은 잘 하지만 매번 몇 분의 optimization과정이 필요
 
 ## Global Directions
 - text prompt를 style space S의 single, global direction과 mapping하는 방법
@@ -23,15 +23,16 @@
    3. StyleGAN2에서 생성한 이미지 G(w_hat)과 text 간의 유사도(Similarity Loss)를 CLIP model을 통해 구한다.
    4. Mapper는 G(w_hat)과 text 간의 유사도를 최소화시키는 latent vector를 뽑아내도록 학습된다.
 
-- Mapper를 Training 시킴으로써 매번 optimization과정을 거쳐야 하는 Latent Optimization 방식의 단점을 보완
-- text embedding vector를 사용하여 기존 Mapper의 단점을 개선
-- 하나의 모델에서 multi style을 learning 하는 효율적인 방법
+- Advantages
+   - Mapper를 Training 시킴으로써 매번 optimization과정을 거쳐야 하는 Latent Optimization 방식의 단점을 보완
+   - text embedding vector를 사용하여 기존 Mapper의 단점을 개선
+   - 하나의 모델에서 multi style을 learning 하는 효율적인 방법
 - 단, 학습되어 있지 않은 style은 수행하지 못함
 
 ### Method 1. Use text embedding vector obtained from torch.nn.embedding
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/74402562/130408521-54a5b4ad-a7e5-4f09-837c-febddb345066.png" width="90%" height="90%">
+    <img src="https://user-images.githubusercontent.com/74402562/130408521-54a5b4ad-a7e5-4f09-837c-febddb345066.png" width="100%" height="100%">
 </p>
 <br/>
 
@@ -41,7 +42,7 @@
 ### Method 2. Use text embedding vector obtained from CLIP text encoder
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/74402562/130408531-b6e9218f-5b57-4396-b99f-19b673b823f6.png" width="90%" height="90%">
+    <img src="https://user-images.githubusercontent.com/74402562/130408531-b6e9218f-5b57-4396-b99f-19b673b823f6.png" width="100%" height="100%">
 </p>
 <br/>
 
@@ -51,7 +52,7 @@
 ### Method 3. Use Single Model for Multi Style Combination
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/74402562/130411102-f1b3fb01-4033-48ce-8bb0-bdec59385918.png" width="90%" height="90%">
+    <img src="https://user-images.githubusercontent.com/74402562/130411102-f1b3fb01-4033-48ce-8bb0-bdec59385918.png" width="100%" height="100%">
 </p>
 <br/>
 
@@ -83,13 +84,12 @@ pip install git+https://github.com/openai/CLIP.git
 
 ####  Guidance  
 
-- Main training script는 ```mapper/train.py```입니다.
-- Training arguments는 ```mapper/options/train_options.py```에 있습니다.
-- Namespace를 사용하려면 ```mapper/train.py``` 에서 주석 처리된 코드를 살려주면 됩니다. 기존에는 ```ArgumentParser```를 사용한 코드로 적용되어 있습니다.
-- 학습할 text를 추가하거나 수정하려면 ```mapper/dataset/latents_dataset.py```에서 수정하면 됩니다.
-- Original Image에서 'color'는 변화시키고 싶지 않다면, ```no_fine_mapper = True```로 설정해야 합니다.
-    * hair style 변화를 학습시키려면 ```no_fine_mapper=True```로 설정해야 머리 색상이 바뀌지 않습니다.
-- weight를 불러와서 학습을 이어가려면, ```--checkpoint_path```에 weight명을 설정해주면 됩니다.
+- Main training script is placed in ```mapper/train.py```
+- Training arguments can be found at ```mapper/options/train_options.py```
+- To add or modify text to learn, modify it in ```mapper/dataset/latents_dataset.py```
+- If you perform an edit that is not supposed to change "colors" in the image, it is recommended to use the flag ```--no_fine_mapper```
+    * To learn hair style text, use the flag ```--no_fine_mapper``` so that the hair color does not change
+- To resume a training, please provide ```--checkpoint_path```
 
 
 ### Method 1. Use text embedding vector obtained from torch.nn.embedding
@@ -102,9 +102,6 @@ Example for training a mapper for hairstyle:
 cd mapper
 python train.py --data_mode "hair" --train_dataset_size 25000 --mapper_mode "Mapper_cat" --no_fine_mapper
 ```
-
-위 코드 실행 방식은 ```ArgumentParser```를 사용할 때의 방식입니다.    
-```Namespace```를 사용할  ```opts.data_mode = "hair" , opts.mapper_mode = "Mapper_cat" , opts.no_fine_mapper = True```로 설정해주면 됩니다.
 
 #### Vector Summation
 
@@ -149,7 +146,7 @@ python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Ma
 - inference 시 생성된 images는 ```result_[입력한 texts].png``` 형태로 저장됩니다.
 - ```--new_latent```를 써주면 원하는 이미지를 latent vector로 바꿔 사용할 수 있습니다. ```default = False```
    * ```--new_image_path```에 이미지 파일을 입력해주세요. 예) "ubin.jpg"
-   * encoder과정 시 필요한 파일들 ```"e4e_ffhq_encode.pt"```와 ```"shape_predictor_68_face_landmarks.dat"```는 코드 상에서 자동으로 다운받을 수 있도록 해놓았으나 불가할 시에는 google drive [styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)폴더에서 download 가능합니다. 
+   * encoder과정 시 필요한 파일들 ```"e4e_ffhq_encode.pt"```와 ```"shape_predictor_68_face_landmarks.dat"```는 코드 상에서 자동으로 다운받을 수 있습니다. 불가할 시에는 google drive [styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)폴더에서 download 가능합니다. 
 
 ### 1. Multi Model Combination    
 
