@@ -19,7 +19,7 @@ from mapper.styleclip_mapper import StyleCLIPMapper
 from mapper.inference import inference_code
 from mapper.latents_encoder.encoder import encoder
 
-def single_inference(test_opts):
+def inference_single(test_opts):
   if test_opts.weights_download:
     ensure_checkpoint_exists("multi_sum.pt")
 
@@ -91,7 +91,7 @@ if __name__=="__main__":
                  }
   #test_opts = Namespace(**test_options)
   test_opts = TestOptions().parse()
-  images = single_inference(test_opts)  
+  images = inference_single(test_opts)  
   images.save("results_{}.png".format(test_opts.texts))
   plt.figure(figsize=(16,16))
   plt.imshow(images)
