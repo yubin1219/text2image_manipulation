@@ -193,8 +193,8 @@ python inference_single.py --latent_path "test_female.pt" --texts Emma_Watson --
 <br/>
 
 # Dataset
-- CelebA-HQ 이미지를 encoder4editing을 통해 latent vector로 변환시켜 데이터셋으로 사용했습니다.   
-- CLIP model을 통해 train set과 test set을 female과 male로 분류하여 사용했습니다.
+- CelebA-HQ 이미지를 encoder4editing을 통해 latent vector로 변환시켜 데이터셋으로 사용   
+- CLIP model을 통해 train set과 test set을 female과 male로 분류하여 사용
 
 
 Dataset | Description
