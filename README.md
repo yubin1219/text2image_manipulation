@@ -14,14 +14,15 @@
 - 수용할 수 있는 text의 범위가 넓음
 
 ## Latent Mapper 
-**이번 프로젝트의 "Main Method"**
+**" Main Method "**
 
 - Mapper는 latent vector w를 text의 의미에 맞게 변화시키는 방향으로 Training
-- Training 과정
-   1. 이미지 정보가 담긴 latent vector는 text embedding vector와 summaiton 또는 concatenate되어 Mapper의 input으로 들어간다.
-   2. Mapper를 통해 얻은 latent vector와 기존 latent vector w는 summation되어 StyleGAN2의 input으로 들어간다.
-   3. StyleGAN2에서 생성한 이미지 G(w_hat)과 text 간의 유사도(Similarity Loss)를 CLIP model을 통해 구한다.
-   4. Mapper는 G(w_hat)과 text 간의 유사도를 최소화시키는 latent vector를 뽑아내도록 학습된다.
+- Training Process
+   1. Encoder를 통해 original image의 latent vector를 얻는다.
+   2. Encoder를 통해 얻은 latent vector는 text embedding vector와 summaiton 또는 concatenate되어 Mapper의 input으로 들어간다.
+   3. Mapper를 통해 얻은 latent vector와 기존 latent vector w는 summation되어 StyleGAN2의 input으로 들어간다.
+   4. StyleGAN2에서 생성한 이미지 G(w_hat)과 text 간의 유사도(Similarity Loss)를 CLIP model을 통해 구한다.
+   5. Mapper는 G(w_hat)과 text 간의 유사도를 최소화시키는 latent vector를 뽑아내도록 학습된다.
 
 - Advantages
    - Mapper를 Training 시킴으로써 매번 optimization과정을 거쳐야 하는 Latent Optimization 방식의 단점을 보완
@@ -146,7 +147,7 @@ python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Ma
 - inference 시 생성된 images는 ```result_[입력한 texts].png``` 형태로 저장됩니다.
 - ```--new_latent```를 써주면 원하는 이미지를 latent vector로 바꿔 사용할 수 있습니다. ```default = False```
    * ```--new_image_path```에 이미지 파일을 입력해주세요. 예) "ubin.jpg"
-   * encoder과정 시 필요한 파일들 ```"e4e_ffhq_encode.pt"```와 ```"shape_predictor_68_face_landmarks.dat"```는 코드 상에서 자동으로 다운받을 수 있습니다. 불가할 시에는 google drive [styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)폴더에서 download 가능합니다. 
+   * encoder과정 시 필요한 파일들 ```"e4e_ffhq_encode.pt"```와 ```"shape_predictor_68_face_landmarks.dat"```는 코드 상에서 자동으로 다운받을 수 있습니다. 불가할 시에는 google drive [styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)폴더에서 download 가능 
 
 ### 1. Multi Model Combination    
 
@@ -242,4 +243,3 @@ Dataset | Description
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130781822-27aef3cd-72df-4f86-9311-bc932a93dc63.png"></p>
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130781826-a124a7e3-fda9-4871-8174-449687853fed.png"></p>
 <p align="center"><img src="https://user-images.githubusercontent.com/74402562/130781834-2236dbf6-ee23-4ea0-bfe4-3cf5178d9f0c.png"></p>
-
