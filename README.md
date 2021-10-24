@@ -37,17 +37,11 @@
 </p>
 <br/>
 
-- nn.embedding을 통해 얻은 text embedding vector를 latent vector와 summation 또는 concatenate하여 Mapper의 input으로 사용
-<br/>
-
 ### Method 2. Use text embedding vector obtained from CLIP text encoder
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/74402562/130408531-b6e9218f-5b57-4396-b99f-19b673b823f6.png" width="100%" height="100%">
 </p>
-<br/>
-
-- CLIP의 text encoder를 통해 얻은 text embedding vector를 latent vector와 concatenate하여 Mapper의 input으로 사용
 <br/>
 
 ### Method 3. Use Single Model for Multi Style Combination
@@ -59,6 +53,7 @@
 
 - 이전 method들은 하나의 모델에서 multi style을 학습하기는 하지만 그 style들이 결합된 상태는 학습하지 못함
 - 이 method는 하나의 모델에서 각각의 style과 그 style들이 결합된 상태까지 Training
+- Inference 속도 단축
 
 # Setup
 - install CLIP
@@ -136,18 +131,15 @@ python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Ma
 
 ## Inference     
 #### Guidance
-- ```mapper/utils.py```에 데이터셋과 pretrained weights의 google drive 주소와 download 함수가 있습니다.
-- ```--weights_download```를 True로 하면 inference과정에서 필요한 dataset과 weight들이 자동으로 다운로드 됩니다.
-- inference argument는 ```mapper/options/test_options.py```에 있습니다.
-- ```Namespace```를 사용하려면 ```mapper/inference.py``` 에서 주석 처리된 코드를 살려주면 됩니다. 기존에는 ```ArgumentParser```를 사용한 코드로 적용되어 있습니다.
-- ```--w_num```은 몇 번째 latent vector를 사용할 것인지를 의미합니다. 숫자를 입력하여 원본 이미지를 바꿀 수 있습니다. ```default = 60 ```
-- ```--modules```는 사용할 module을 하나씩 입력하면 list에 담아집니다.
-- ```--texts```는 style을 하나씩 입력하면 list에 담아집니다.
-- ```--modules```와 ```--texts```는 짝이 맞아야 합니다.
-- inference 시 생성된 images는 ```result_[입력한 texts].png``` 형태로 저장됩니다.
+- Google drive addresses of pretrained weights and dataset download function are placed in ```mapper/utils.py```
+- If ```--weights_download``` is set to True, the dataset and weights required in the inference process are automatically downloaded.
+- Inference argument is placed in ```mapper/options/test_options.py```
+- ```--num``` means which late vector to use. ```default = 60 ```
+- ```--modules```and ```--texts``` must be paired.
+- Images generated during inference are stored in the form of ```result_[input texts].png```
 - ```--new_latent```를 써주면 원하는 이미지를 latent vector로 바꿔 사용할 수 있습니다. ```default = False```
-   * ```--new_image_path```에 이미지 파일을 입력해주세요. 예) "ubin.jpg"
-   * encoder과정 시 필요한 파일들 ```"e4e_ffhq_encode.pt"```와 ```"shape_predictor_68_face_landmarks.dat"```는 코드 상에서 자동으로 다운받을 수 있습니다. 불가할 시에는 google drive [styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)폴더에서 download 가능 
+   * Enter image file path in ```--new_image_path```. ex) "ubin.jpg"
+   * ```"e4e_ffhq_encode.pt"``` and ```"shape_predictor_68_face_landmarks.dat"``` files required during the encoder process can be automatically downloaded from the code. If it's impossible, you can download it in the Google drive folder [[styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)]
 
 ### 1. Multi Model Combination    
 
@@ -194,8 +186,8 @@ python inference_single.py --latent_path "test_female.pt" --texts Emma_Watson --
 <br/>
 
 # Dataset
-- CelebA-HQ 이미지를 encoder4editing을 통해 latent vector로 변환시켜 데이터셋으로 사용   
-- CLIP model을 통해 train set과 test set에서 female과 male로 분류하여 사용
+- CelebA-HQ images are converted into latent vectors through encoder4editing and used as a dataset.    
+- Through the CLIP model, each image of the train set and test set is classified into female or male and used.    
 
 
 Dataset | Description
