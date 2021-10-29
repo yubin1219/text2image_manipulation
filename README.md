@@ -137,7 +137,7 @@ python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Ma
 - ```--num``` means which late vector to use. ```default = 60 ```
 - ```--modules```and ```--texts``` must be paired.
 - Images generated during inference are stored in the form of ```result_[input texts].png```
-- ```--new_latent```means whether to use the image you have.  ```default = False```
+- ```--new_latent``` means whether to use the image you have.  ```default = False```
    * Enter image file path in ```--new_image_path```. ex) "ubin.jpg"
    * ```"e4e_ffhq_encode.pt"``` and ```"shape_predictor_68_face_landmarks.dat"``` files required during the encoder process can be automatically downloaded from the code. If it's impossible, you can download it in the Google drive folder [[styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)]
 
