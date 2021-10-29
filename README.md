@@ -14,7 +14,7 @@
 - 수용할 수 있는 text의 범위가 넓음
 
 ## Latent Mapper 
-**" Main Method "**
+**이번 프로젝트에서 개선한 Method**
 
 - Mapper는 latent vector w를 text의 의미에 맞게 변화시키는 방향으로 Training
 - Training Process
@@ -25,10 +25,10 @@
    5. Mapper는 G(w_hat)과 text 간의 유사도를 최소화시키는 latent vector를 뽑아내도록 학습된다.
 
 - Advantages
-   - Mapper를 Training 시킴으로써 매번 optimization과정을 거쳐야 하는 Latent Optimization 방식의 단점을 보완
-   - text embedding vector를 사용하여 기존 Mapper의 단점을 개선
-   - 하나의 모델에서 multi style을 learning 하는 효율적인 방법
-- 단, 학습되어 있지 않은 style은 수행하지 못함
+   - Mapper를 Training 시킴으로써 매번 optimization과정을 거쳐야 하는 Latent Optimization 방식의 단점을 보완하였다.
+   - text embedding vector를 사용하여 기존 Mapper의 단점을 개선하였다.
+   - 하나의 모델에서 multi style을 learning 하는 효율적인 방법이다.
+- 단, 학습되어 있지 않은 style은 수행하지 못한다.
 
 ### Method 1. Use text embedding vector obtained from torch.nn.embedding
 
@@ -51,9 +51,9 @@
 </p>
 <br/>
 
-- 이전 method들은 하나의 모델에서 multi style을 학습하기는 하지만 그 style들이 결합된 상태는 학습하지 못함
-- 이 method는 하나의 모델에서 각각의 style과 그 style들이 결합된 상태까지 Training
-- Inference 속도 단축
+- 이전 method들은 하나의 모델에서 multi style을 학습하기는 하지만 그 style들이 결합된 상태는 학습하지 못한다.
+- 이 method는 하나의 모델에서 각각의 style과 그 style들이 결합된 상태까지 Training한다.
+- Inference 속도를 단축한다.
 
 # Setup
 - install CLIP
@@ -137,7 +137,7 @@ python train.py --data_mode "multi" --train_dataset_size 78000 --mapper_mode "Ma
 - ```--num``` means which late vector to use. ```default = 60 ```
 - ```--modules```and ```--texts``` must be paired.
 - Images generated during inference are stored in the form of ```result_[input texts].png```
-- ```--new_latent```를 써주면 원하는 이미지를 latent vector로 바꿔 사용할 수 있습니다. ```default = False```
+- ```--new_latent```means whether to use the image you have.  ```default = False```
    * Enter image file path in ```--new_image_path```. ex) "ubin.jpg"
    * ```"e4e_ffhq_encode.pt"``` and ```"shape_predictor_68_face_landmarks.dat"``` files required during the encoder process can be automatically downloaded from the code. If it's impossible, you can download it in the Google drive folder [[styleclip](https://drive.google.com/drive/folders/1kWkwihhYAg6mLffcxHzFofucM1dkVKVs?usp=sharing)]
 
