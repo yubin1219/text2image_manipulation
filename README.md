@@ -1,6 +1,7 @@
 # Text to Image Manipulation
 ## Multi modal learning project
 - Using OpenAI CLIP (Contrastive Language-Image Pre-Training) [[paper](https://arxiv.org/abs/2103.00020)] [[code](https://github.com/openai/CLIP)]
+- Based on StyleCLIP (StyleCLIP: Text-Driven Manipulation of StyleGAN Imagery) [[paper](https://arxiv.org/abs/2103.17249)] [[code](https://github.com/orpatashnik/StyleCLIP)]
 
 ## Latent Optimization
 
