@@ -1,6 +1,6 @@
 # Text to Image Manipulation
 ## Multi modal learning project
-- using OpenAI CLIP (Contrastive Language-Image Pre-Training) [[paper](https://arxiv.org/abs/2103.00020)] [[code](https://github.com/openai/CLIP)]
+- Using OpenAI CLIP (Contrastive Language-Image Pre-Training) [[paper](https://arxiv.org/abs/2103.00020)] [[code](https://github.com/openai/CLIP)]
 
 ## Latent Optimization
 
@@ -9,7 +9,7 @@
 - text 의미에 맞게 이미지 manipulation은 잘 하지만 매번 몇 분의 optimization과정이 필요
 
 ## Global Directions
-- text prompt를 style space S의 single, global direction과 mapping하는 방법
+- Text prompt를 style space S의 single, global direction과 mapping하는 방법
 - Text prompt가 주어지면 CLIP을 통해 original text와 target text의 임베딩 차이인 delta t를 구한 후 기존 style과 변경된 style의 차이인 delta s에 mapping
 - 수용할 수 있는 text의 범위가 넓음
 
